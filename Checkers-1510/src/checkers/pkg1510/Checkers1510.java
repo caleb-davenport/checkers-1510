@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *
+ * Honors Project: Checkers
+ * Joshua Blohm, Caleb Davenport, Ashley Fredenburg, Roan Martin-Hayden
+ * EECS 1510-091: Dr. Ledgard
+ * 
  */
 package checkers.pkg1510;
 
@@ -13,10 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-/**
- *
- * @author rmartin-
- */
 public class Checkers1510 extends Application {
     
     @Override
