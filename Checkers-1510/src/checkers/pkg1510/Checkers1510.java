@@ -7,6 +7,7 @@
  */
 package checkers.pkg1510;
 
+import java.io.File;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -43,7 +44,51 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        
     }
     
+    /**
+     * Function to set up game based on a profile held in text file.
+     * 
+     * @param profile File to load for artifical start of game
+     */
+    private void init(File profile /*=newGame*/) {
+        
+    };
+    
+    /**
+     * Function to determine a winner, or lack thereof
+     * 
+     * @return Who has won or null for no winner
+     */
+    private String isWon() {
+        String winner = null;
+        return winner;
+    }
+    
+    /**
+     * Convert move from String input
+     * 
+     * @return Move as char[x1,y1,x2,y2]
+     */
+    private char[] getMove(String move) {
+        char[] loc = new char[4];
+        return loc;
+    }
+    
+    /**
+     * Function to test if a move is valid
+     * 
+     * @return Boolean value of whether move is valid or not
+     */
+    private boolean isValid() {
+        boolean valid = false;
+        return valid;
+    }
+     /**
+      * Function to update game state variables
+      * @param move Move to be added in char[x1,y1, x2, y2] format
+      */
+    private void update(char[] move) {
+    }
 }
