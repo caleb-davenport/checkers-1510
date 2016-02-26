@@ -8,6 +8,7 @@
 package checkers.pkg1510;
 
 import java.io.File;
+import java.util.Arrays;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,33 +19,19 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
+    Board gameBoard = new Board();
+    
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        System.out.println(Arrays.deepToString(gameBoard));
+        System.exit(0);
     }
     
     /**
@@ -53,7 +40,9 @@ public class Checkers1510 extends Application {
      * @param profile File to load for artifical start of game
      */
     private void init(File profile /*=newGame*/) {
+        //read file
         
+        //implement changes to board
     };
     
     /**
