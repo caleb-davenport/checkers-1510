@@ -14,44 +14,45 @@ public class Board {
     int board[][] = new int[8][8];
     
     /**
-     * 
-     * 
+     * Updates board by moving one piece.
      * @auth Josh
      * 
-     * @param move 
+     * @param move a four int array with [strt x, strt y, end x, end y]
      */
     public void movePiece(int[] move) {
-        // get starting positon
-        // make 
+        // parse input
+        // get piece type on the board
+        // set old position to empty
+        // set new sqaure with proper piece type
     }
     
     /**
-     * 
-     * 
+     * Loads board into program variables from text file
      * @auth Roan
      * 
-     * @param setup 
+     * @param path path to setup file
      */
-    public void setupBoard(int[][] setup) {
+    public void setupBoard(String path) {
         
     }
     
     /**
-     * 
+     * Returns the state of an given square
      * @auth Caleb
      * 
-     * @return 
+     * @return state of the square as int (perhaps enum)
      */
-    public int getSquareState() {
+    public int getSquareState(int[] square) {
         return -42;
     }
     
     /**
-     * 
+     * Edits a piece at a given square to be a king
      * @auth Ashley
      * 
+     * @param square location to find and king a piece
      */
-    public void kingPiece() {
+    public void kingPiece(int[] square) {
         
     } 
     
