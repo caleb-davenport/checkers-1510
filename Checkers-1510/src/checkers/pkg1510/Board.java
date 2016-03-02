@@ -11,7 +11,15 @@ package checkers.pkg1510;
  * @author rmartin-
  */
 public class Board {
-    int board[][] = new int[8][8];
+
+    int board[][] = {        //0=blank space  2=red piece  1=black piece
+    {0,2,0,2,0,2,0,2},
+    {2,0,2,0,2,0,2,0},
+    {0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0},
+    {1,0,1,0,1,0,1,0},
+    {0,1,0,1,0,1,0,1}
+    };
     
     /**
      * Updates board by moving one piece.
@@ -53,7 +61,12 @@ public class Board {
      * @param square location to find and king a piece
      */
     public void kingPiece(int[] square) {
-        
+        // if x==0 black is a king
+        //if x==7 red is a king
+        if (//space you want to move to x !=0)
+        board[//space you want to move to] = 1
+        else
+        board[//space you want to move to] = 1 * 3 //king multiplyer 
     } 
     
 }
