@@ -12,26 +12,54 @@ package checkers.pkg1510;
  */
 public class Board {
 
-    int board[][] = {        //0=blank space  2=red piece  1=black piece
-    {0,2,0,2,0,2,0,2},
-    {2,0,2,0,2,0,2,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {1,0,1,0,1,0,1,0},
-    {0,1,0,1,0,1,0,1}
-    };
+    public Square board[][] = new Square[8][8];
+    // Squares are counted from bottom left to top right.
+    // in indexing, first elemtn is row, second is column: [row][column]
+
+    public enum Square {
+        
+        invalid(-2, null, null, null, true),
+        empty(-1, null, null, true, false),
+        blackSerf(0, false, false, true, true),
+        redSerf(1, true, false, true, true),
+        blackKing(2, false, true, true, true),
+        redKing(3, true, true, true, true);
+
+        private final double rawNumber;   // number representing state
+        private final Boolean team; // f=black t=red Null=empty
+        private final Boolean type; // f=not_king t=king Null=emty
+        private final Boolean isOccupied; // f=empty t=occupied Null=invalid
+        private final Boolean isValid; // f=invalid, t=valid
+
+        Square(double rawNumber, Boolean team, Boolean type, Boolean isOccupied,
+                Boolean isValid) {
+            this.rawNumber = rawNumber;
+            this.team = team;
+            this.type = type;
+            this.isOccupied = isOccupied;
+            this.isValid = isValid;
+        }
+
+        private double rawNumber() { return rawNumber; }
+        private Boolean team() { return team; }
+        private Boolean type() { return type; }
+        private Boolean isOccupied() { return isOccupied; }
+        private Boolean isValid() { return isValid; }
+        
+    }
     
-    /**
-     * Updates board by moving one piece.
-     * @auth Josh
-     * 
-     * @param move a four int array with [strt x, strt y, end x, end y]
-     */
-    public void movePiece(int[] move) {
-        // parse input
-        // get piece type on the board
-        // set old position to empty
-        // set new sqaure with proper piece type
+    Board() {
+        //Initialize board as empy, but with invlaid and valid squares
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (i + j % 2 == 1) {
+                    board[i][j] = Square.invalid;
+                }
+                else {
+                    board[i][j] = Square.empty;
+                }
+            }
+        }
     }
     
     /**
