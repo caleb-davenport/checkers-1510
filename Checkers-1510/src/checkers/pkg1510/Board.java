@@ -49,7 +49,7 @@ public class Board {
     }
     
     Board() {
-        //Initialize board as empy, but with invalid and valid squares
+        //Initialize board as empty, but with invalid and valid squares
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i + j % 2 == 1) {
