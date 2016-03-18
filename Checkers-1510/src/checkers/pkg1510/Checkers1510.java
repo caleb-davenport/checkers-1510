@@ -31,8 +31,8 @@ public class Checkers1510 extends Application {
      */
     public static void main(String[] args) {
        gameBoard.setupBoard();
-       System.out.println(gameBoard.coord(5, 4));
-        System.exit(0);
+       gameBoard.printDebugBoard();
+       System.exit(0);
     }
     
     /**

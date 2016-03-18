@@ -18,12 +18,12 @@ public class Board {
 
     public enum Square {
         
-        invalid(-2, null, null, null, false),
-        empty(-1, null, null, false, true),
-        blackSerf(0, false, false, true, true),
-        redSerf(1, true, false, true, true),
-        blackKing(2, false, true, true, true),
-        redKing(3, true, true, true, true);
+        invalid  (-2, null,  null,  null,  false),
+        empty    (-1, null,  null,  false, true),
+        blackSerf(0,  false, false, true,  true),
+        redSerf  (1,  true,  false, true,  true),
+        blackKing(2,  false, true,  true,  true),
+        redKing  (3,  true,  true,  true,  true);
 
         private final double rawNumber;   // number representing state
         private final Boolean isRed; // f=black t=red Null=empty
@@ -47,7 +47,6 @@ public class Board {
         public Boolean isValid() { return isValid; }
         
     }
-    
     /**
      * Loads board into program variables from text file
      * @auth Roan
@@ -58,7 +57,7 @@ public class Board {
         //Initialize board as empty, but with invalid and valid squares
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (i + j % 2 == 1) {
+                if ((i + j) % 2 == 1) {
                     board[i][j] = Square.invalid;
                 }
                 else {
@@ -78,6 +77,14 @@ public class Board {
         return board[x][y];
     }
     
+    public void printDebugBoard() {
+       for (int i = 0; i < 8; i++) {
+	  for (int j = 0; j < 8; j++) {
+	     System.out.print(coord(i, j));
+	  }
+	  System.out.println("");
+       }
+    }
     /**
      * Edits a piece at a given square to be a king
      * @auth Ashley
