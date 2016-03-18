@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
-    Board gameBoard = new Board();
+    static Board gameBoard = new Board();
     
     @Override
     public void start(Stage primaryStage) {
@@ -30,7 +30,8 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        System.out.println(Arrays.deepToString(gameBoard));
+       gameBoard.setupBoard();
+       System.out.println(gameBoard.coord(5, 4));
         System.exit(0);
     }
     

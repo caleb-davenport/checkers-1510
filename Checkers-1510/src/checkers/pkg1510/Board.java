@@ -40,15 +40,21 @@ public class Board {
             this.isValid = isValid;
         }
 
-        private double rawNumber() { return rawNumber; }
-        private Boolean isRed() { return isRed; }
-        private Boolean isKing() { return isKing; }
-        private Boolean isOccupied() { return isOccupied; }
-        private Boolean isValid() { return isValid; }
+        public double rawNumber() { return rawNumber; }
+        public Boolean isRed() { return isRed; }
+        public Boolean isKing() { return isKing; }
+        public Boolean isOccupied() { return isOccupied; }
+        public Boolean isValid() { return isValid; }
         
     }
     
-    Board() {
+    /**
+     * Loads board into program variables from text file
+     * @auth Roan
+     * 
+     * @param path path to setup file
+     */
+    public void setupBoard(/*String path*/) {
         //Initialize board as empty, but with invalid and valid squares
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -63,23 +69,13 @@ public class Board {
     }
     
     /**
-     * Loads board into program variables from text file
-     * @auth Roan
-     * 
-     * @param path path to setup file
-     */
-    public void setupBoard(String path) {
-        
-    }
-    
-    /**
      * Returns the state of an given square
      * @auth Caleb
      * 
      * @return state of the square as int (perhaps enum)
      */
-    public int getSquareState(int[] square) {
-        return -42;
+    public Square coord(int x, int y) {
+        return board[x][y];
     }
     
     /**
