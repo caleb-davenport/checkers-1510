@@ -29,11 +29,11 @@ public class Board {
 
     public enum Square {
         invalid  (-2, null,  null,  null,  false, "x"),
-        empty    (-1, null,  null,  false, true, "_"),
-        blackSerf(0,  false, false, true,  true, "b"),
-        redSerf  (1,  true,  false, true,  true, "r"),
-        blackKing(2,  false, true,  true,  true, "B"),
-        redKing  (3,  true,  true,  true,  true, "R");
+        empty    (-1, null,  null,  false, true,  "_"),
+        blackSerf(0,  false, false, true,  true,  "b"),
+        redSerf  (1,  true,  false, true,  true,  "r"),
+        blackKing(2,  false, true,  true,  true,  "B"),
+        redKing  (3,  true,  true,  true,  true,  "R");
 
         private final double rawNumber;   // number representing state
         private final Boolean isRed; // f=black t=red Null=empty
@@ -44,20 +44,20 @@ public class Board {
 
         Square(double rawNumber, Boolean isRed, Boolean isKing, Boolean isOccupied,
                 Boolean isValid, String code) {
-            this.rawNumber = rawNumber;
-            this.isRed = isRed;
-            this.isKing = isKing;
+            this.rawNumber  = rawNumber;
+            this.isRed      = isRed;
+            this.isKing     = isKing;
             this.isOccupied = isOccupied;
-            this.isValid = isValid;
-            this.code = code;
+            this.isValid    = isValid;
+            this.code       = code;
         }
 
-        public double rawNumber() { return rawNumber; }
-        public Boolean isRed() { return isRed; }
-        public Boolean isKing() { return isKing; }
+        public double rawNumber()   { return rawNumber; }
+        public Boolean isRed()      { return isRed; }
+        public Boolean isKing()     { return isKing; }
         public Boolean isOccupied() { return isOccupied; }
-        public Boolean isValid() { return isValid; }
-        public String toString() { return String.valueOf(code); }
+        public Boolean isValid()    { return isValid; }
+        public String toString()    { return String.valueOf(code); }
     }
     
     /**
