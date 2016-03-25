@@ -130,6 +130,22 @@ public class Board {
         return board[x][y];
     }
     
+    public void movePiece(int startx, int starty, int stopx, int stopy){
+        if (board[startx][starty] == Square.redSerf)
+            board[stopx][stopy] = Square.redSerf;
+        
+        if(board[startx][starty] == Square.redKing)
+           board[stopx][stopy] = Square.redKing;
+        
+        if(board[startx][starty] == Square.blackSerf)
+           board[stopx][stopy] = Square.blackSerf;
+        
+        if(board[startx][starty] == Square.blackKing)
+           board[stopx][stopy] = Square.blackKing; 
+            
+        board[startx][starty] = Square.empty;
+        
+    }
     /**
      * Print a visualization of the board
      */
