@@ -5,6 +5,17 @@
  */
 package checkers.pkg1510;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.shape.Shape;
+
 
 /**
  *
@@ -17,27 +28,28 @@ public class Board {
     // in indexing, first element is row, second is column: [row][column]
 
     public enum Square {
-        
-        invalid  (-2, null,  null,  null,  false),
-        empty    (-1, null,  null,  false, true),
-        blackSerf(0,  false, false, true,  true),
-        redSerf  (1,  true,  false, true,  true),
-        blackKing(2,  false, true,  true,  true),
-        redKing  (3,  true,  true,  true,  true);
+        invalid  (-2, null,  null,  null,  false, "x"),
+        empty    (-1, null,  null,  false, true, "_"),
+        blackSerf(0,  false, false, true,  true, "b"),
+        redSerf  (1,  true,  false, true,  true, "r"),
+        blackKing(2,  false, true,  true,  true, "B"),
+        redKing  (3,  true,  true,  true,  true, "R");
 
         private final double rawNumber;   // number representing state
         private final Boolean isRed; // f=black t=red Null=empty
         private final Boolean isKing; // f=not_king t=king Null=empty
         private final Boolean isOccupied; // f=empty t=occupied Null=invalid
         private final Boolean isValid; // f=invalid, t=valid
+        private final String code;
 
         Square(double rawNumber, Boolean isRed, Boolean isKing, Boolean isOccupied,
-                Boolean isValid) {
+                Boolean isValid, String code) {
             this.rawNumber = rawNumber;
             this.isRed = isRed;
             this.isKing = isKing;
             this.isOccupied = isOccupied;
             this.isValid = isValid;
+            this.code = code;
         }
 
         public double rawNumber() { return rawNumber; }
@@ -45,26 +57,67 @@ public class Board {
         public Boolean isKing() { return isKing; }
         public Boolean isOccupied() { return isOccupied; }
         public Boolean isValid() { return isValid; }
-        
+        public String toString() { return String.valueOf(code); }
     }
+    
+    /**
+     * Returns square object from a given code
+     */
+    public Square decode (String code) {
+        switch (code) {
+            case "x": return Square.invalid;
+            case "_": return Square.empty;
+            case "b": return Square.blackSerf;
+            case "r": return Square.redSerf;
+            case "B": return Square.blackKing;
+            case "R": return Square.redKing;
+            default: return null;
+        }
+    }
+    
     /**
      * Loads board into program variables from text file
      * @auth Roan
      * 
-     * @param path path to setup file
+     * @param pathStr path to setup file. Pass "" for default game
      */
-    public void setupBoard(/*String path*/) {
-        //Initialize board as empty, but with invalid and valid squares
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((i + j) % 2 == 1) {
-                    board[i][j] = Square.invalid;
-                }
-                else {
-                    board[i][j] = Square.empty;
+    public int setupBoard (String pathStr) {
+        Path path;
+        int returnVal;
+        
+        if (pathStr.isEmpty() || pathStr == null) {
+            //Initialize board as empty, but with invalid and valid squares
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if ((i + j) % 2 == 0) {
+                        board[i][j] = Square.invalid;
+                    }
+                    else {
+                        board[i][j] = Square.empty;
+                    }
                 }
             }
+            returnVal = 0;
+        } else {
+            try {
+                path = Paths.get(pathStr);
+                List<String> input = Files.readAllLines(path);
+                if (input.size() != 8) throw new Exception("Format Error");
+                for (int i = 0; i < 8; ++i) {
+                    String[] codes = input.get(i).split("\t");
+                    for (int j = 0; j < 8; ++j) {
+                        board[i][j] = decode(codes[j]);
+                    }
+                }
+                returnVal = 0;
+            } catch (Exception ex) {
+                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("ERROR: Loading board Setup, Loading default");
+                setupBoard("");
+                returnVal = 1;
+            }
         }
+        return returnVal;
     }
     
     /**
@@ -77,10 +130,13 @@ public class Board {
         return board[x][y];
     }
     
+    /**
+     * Print a visualization of the board
+     */
     public void printDebugBoard() {
        for (int i = 0; i < 8; i++) {
 	  for (int j = 0; j < 8; j++) {
-	     System.out.print(coord(i, j));
+	     System.out.print(coord(i, j).toString() + "\t");
 	  }
 	  System.out.println("");
        }
