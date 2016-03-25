@@ -33,8 +33,9 @@ public class Checkers1510 extends Application {
        //visualBoard.setGridLinesVisible(true);
        configureBoardLayout(visualBoard);
        colorBoard(visualBoard);
+       redrawPieces(visualBoard);
         BorderPane root = new BorderPane(visualBoard);
-        primaryStage.setScene(new Scene(root, 400, 400));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 
@@ -51,6 +52,22 @@ public class Checkers1510 extends Application {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 board.add(new Rectangle(50, 50, squareColor(col, row)), col, row);
+            }
+        }
+    }
+    
+    private void redrawPieces(GridPane board) { // !!!Run this at the end of every turn!!!
+        Board.Square square;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                square = gameBoard.coord(row, col);
+                if (square.isValid() && square.isOccupied()) {
+                    if (square.isRed()) {
+                        board.add(new Circle(25, 25, 20, Color.web("F00")), col, row);
+                    } else {
+                        board.add(new Circle(25, 25, 20, Color.web("000")), col, row);
+                    }
+                }
             }
         }
     }
