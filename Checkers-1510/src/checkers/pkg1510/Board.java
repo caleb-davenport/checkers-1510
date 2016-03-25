@@ -75,6 +75,7 @@ public class Board {
         }
     }
     
+    
     /**
      * Loads board into program variables from text file
      * @auth Roan
@@ -126,8 +127,8 @@ public class Board {
      * 
      * @return state of the square as int (perhaps enum)
      */
-    public Square coord(int x, int y) {
-        return board[x][y];
+    public Square squareAt(int y, int x) {
+        return board[y][x];
     }
     
     /**
@@ -136,7 +137,7 @@ public class Board {
     public void printDebugBoard() {
        for (int i = 0; i < 8; i++) {
 	  for (int j = 0; j < 8; j++) {
-	     System.out.print(coord(i, j).toString() + "\t");
+	     System.out.print(squareAt(i, j).toString() + "\t");
 	  }
 	  System.out.println("");
        }
@@ -147,13 +148,22 @@ public class Board {
      * 
      * @param square location to find and king a piece
      */
-    public void kingPiece(int[] square) {
+    public void kingPiece(int y, int x) {
         // if x==0 black is a king
         //if x==7 red is a king
         /*if (//space you want to move to x !=0)
         board[//space you want to move to] = 1
         else
         board[//space you want to move to] = 1 * 3 //king multiplyer*/
+        
+        Square square;
+        square = squareAt(y, x);
+        if (square.isValid() && square.isOccupied()) {
+            if (square.isRed())
+                board[y][x] = Square.redKing;
+            else if (square.isRed() == false)
+                board[y][x] = Square.blackKing;
+        }
     } 
     
 }
