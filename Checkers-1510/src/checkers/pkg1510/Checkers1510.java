@@ -42,7 +42,7 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       gameBoard.setupBoard();
+       gameBoard.setupBoard("BoardSetups\\standardGame.txt");
        gameBoard.printDebugBoard();
        launch(args);
        System.exit(0);
