@@ -185,21 +185,21 @@ public class Board {
     /**
      * 
      */
-    public void takePiece(int y1, int x1, int y2, int x2) {
+    public void takePiece(int starty, int startx, int endy, int endx) {
         Square initSquare;
         
-        int ytaken;
-        int xtaken;
+        int takeny;
+        int takenx;
         
-        initSquare = squareAt(y1, x1);
+        initSquare = squareAt(starty, startx);
         if (initSquare.isValid() && initSquare.isOccupied()) {
-            board[y2][x2] = decode(initSquare.code);
+            board[endx][endx] = decode(initSquare.code);
         }
         
-        ytaken = (y2 + y1) / 2; // Midpoint formula: LOL
-        xtaken = (x2 + x1) / 2;
+        takeny = (endx + starty) / 2; // Midpoint formula: LOL
+        takenx = (endx + startx) / 2;
         
-        board[ytaken][xtaken] = Square.empty;
-        board[y1][x1] = Square.empty;
+        board[takeny][takenx] = Square.empty;
+        board[starty][startx] = Square.empty;
     }
 }
