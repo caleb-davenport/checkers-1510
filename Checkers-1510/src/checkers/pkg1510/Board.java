@@ -75,6 +75,7 @@ public class Board {
         }
     }
     
+    
     /**
      * Loads board into program variables from text file
      * @auth Roan
@@ -126,8 +127,8 @@ public class Board {
      * 
      * @return state of the square as int (perhaps enum)
      */
-    public Square coord(int x, int y) {
-        return board[x][y];
+    public Square squareAt(int y, int x) {
+        return board[y][x];
     }
     
     public void movePiece(int startx, int starty, int stopx, int stopy){
@@ -152,7 +153,7 @@ public class Board {
     public void printDebugBoard() {
        for (int i = 0; i < 8; i++) {
 	  for (int j = 0; j < 8; j++) {
-	     System.out.print(coord(i, j).toString() + "\t");
+	     System.out.print(squareAt(i, j).toString() + "\t");
 	  }
 	  System.out.println("");
        }
@@ -163,13 +164,58 @@ public class Board {
      * 
      * @param square location to find and king a piece
      */
-    public void kingPiece(int[] square) {
+    public void kingPiece(int y, int x) {
         // if x==0 black is a king
         //if x==7 red is a king
         /*if (//space you want to move to x !=0)
         board[//space you want to move to] = 1
         else
         board[//space you want to move to] = 1 * 3 //king multiplyer*/
-    } 
+        
+        Square square;
+        square = squareAt(y, x);
+        if (square.isValid() && square.isOccupied()) {
+            if (square.isRed())
+                board[y][x] = Square.redKing;
+            else if (square.isRed() == false)
+                board[y][x] = Square.blackKing;
+        }
+    }
+    
+    /**
+     * 
+     */
+    public void takePiece(int y1, int x1, int y2, int x2) {
+        takePiece(y1, x1, y2, x2, -1, -1);
+    }
+    
+    /**
+     * 
+     */
+    public void takePiece(int y1, int x1, int y2, int x2, int ytaken, int xtaken) {
+        boolean isRed;
+        boolean isKing;
+        Square square;
+        
+        square = squareAt(y1, x1);
+        isRed = square.isRed();
+        isKing = square.isKing();
+        if (square.isValid() && square.isOccupied()) {
+            switch (square.code) {
+                case "b":
+                    board[y2][x2] = Square.blackSerf;
+                case "B":                    
+                    board[y2][x2] = Square.blackKing;
+                case "r":
+                    board[y2][x2] = Square.redSerf;
+                case "R":
+                    board[y2][x2] = Square.redKing;
+            }
+            if (square.isRed() && square.isKing())
+                board[y2][x2] = Square.redKing;
+            else if (square.isRed() == false)
+                board[y2][x2] = Square.blackKing;
+        }
+    }
     
 }

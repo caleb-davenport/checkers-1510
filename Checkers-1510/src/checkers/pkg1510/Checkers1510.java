@@ -8,13 +8,7 @@
 package checkers.pkg1510;
 
 import java.io.File;
-import java.util.Arrays;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.*;
@@ -29,12 +23,21 @@ public class Checkers1510 extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-       GridPane visualBoard = new GridPane();
-       //visualBoard.setGridLinesVisible(true);
-       configureBoardLayout(visualBoard);
-       colorBoard(visualBoard);
+        GridPane visualBoard = new GridPane();
+       
+        GridPane status = new GridPane();
+        BorderPane.setAlignment(status, Pos.TOP_LEFT);
+        status.getChildren().add(new Rectangle(25, 25, Color.web("00F")));
+        configureStatusPanel(status);
+        visualBoard.setGridLinesVisible(true);
+        status.setGridLinesVisible(true);
+        configureBoardLayout(visualBoard);
+        colorBoard(visualBoard);
+        redrawPieces(visualBoard);
         BorderPane root = new BorderPane(visualBoard);
-        primaryStage.setScene(new Scene(root, 400, 400));
+
+        root.setRight(status);
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 
@@ -42,10 +45,11 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       gameBoard.setupBoard("BoardSetups\\standardGame.txt");
-       gameBoard.printDebugBoard();
-       launch(args);
-       System.exit(0);
+        gameBoard.setupBoard("BoardSetups\\standardGame.txt");
+        gameBoard.printDebugBoard();
+        gameBoard.kingPiece(0, 1);
+        gameBoard.printDebugBoard();
+        System.exit(0);
     }
     private void colorBoard(GridPane board) {
         for (int row = 0; row < 8; row++) {
@@ -55,8 +59,36 @@ public class Checkers1510 extends Application {
         }
     }
     
+    private void redrawPieces(GridPane board) { // !!!Run this at the end of every turn!!!
+        Board.Square square;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                square = gameBoard.squareAt(row, col);
+                for (Node node : board.getChildren()) {
+                    if (node instanceof Circle
+                            && GridPane.getColumnIndex(node) == col
+                            && GridPane.getRowIndex(node) == row) {
+                        board.getChildren().remove(node);
+                        break;
+                    }
+                }
+                if (square.isValid() && square.isOccupied()) {
+                    Circle circle;
+                    if (square.isRed()) {
+                        circle = new Circle(25, 25, 20, Color.web("F00"));
+                    } else {
+                        circle = new Circle(25, 25, 20, Color.web("000"));
+                    }
+                    circle.setMouseTransparent(true);
+                    board.add(circle, col, row);
+                }
+            }
+        }
+        System.out.println(board.getChildren());
+    }
+    
     private Color squareColor(int col, int row) {
-        if (gameBoard.coord(col, row).isValid()) {
+        if (gameBoard.squareAt(col, row).isValid()) {
             return Color.web("EEE");
         } else {
             return Color.web("999");
@@ -78,6 +110,22 @@ public class Checkers1510 extends Application {
 	  colConstraints.setHalignment(HPos.CENTER);
 	  board.getColumnConstraints().add(colConstraints);
        }
+    }
+    private void configureStatusPanel(GridPane status) {
+       for (int i=0; i<4; i++) {
+	  RowConstraints rowConstraints = new RowConstraints();
+	  rowConstraints.setMinHeight(100);
+	  rowConstraints.setPrefHeight(100);
+	  rowConstraints.setMaxHeight(100);
+	  rowConstraints.setValignment(VPos.CENTER);
+	  status.getRowConstraints().add(rowConstraints);
+       }
+          ColumnConstraints colConstraints = new ColumnConstraints();
+	  colConstraints.setMinWidth(200);
+	  colConstraints.setPrefWidth(200);
+	  colConstraints.setMaxWidth(200);
+	  colConstraints.setHalignment(HPos.CENTER);
+	  status.getColumnConstraints().add(colConstraints);
     }
     /**
      * Function to set up game based on a profile held in text file.
