@@ -36,9 +36,10 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gameBoard.setupBoard("BoardSetups\\standardGame.txt");
+        gameBoard.setupBoard("BoardSetups\\takePieceTest.txt");
         gameBoard.printDebugBoard();
-        gameBoard.kingPiece(0, 1);
+        gameBoard.takePiece(5, 2, 3, 0);
+        System.out.println("\n\n\n");
         gameBoard.printDebugBoard();
         System.exit(0);
     }
@@ -51,7 +52,7 @@ public class Checkers1510 extends Application {
     }
     
     private Color squareColor(int col, int row) {
-        if (gameBoard.coord(col, row).isValid()) {
+        if (gameBoard.squareAt(col, row).isValid()) {
             return Color.web("EEE");
         } else {
             return Color.web("999");
