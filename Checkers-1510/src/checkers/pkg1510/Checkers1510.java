@@ -63,7 +63,7 @@ public class Checkers1510 extends Application {
         Board.Square square;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                square = gameBoard.coord(row, col);
+                square = gameBoard.squareAt(row, col);
                 for (Node node : board.getChildren()) {
                     if (node instanceof Circle
                             && GridPane.getColumnIndex(node) == col
@@ -88,7 +88,7 @@ public class Checkers1510 extends Application {
     }
     
     private Color squareColor(int col, int row) {
-        if (gameBoard.coord(col, row).isValid()) {
+        if (gameBoard.squareAt(col, row).isValid()) {
             return Color.web("EEE");
         } else {
             return Color.web("999");
