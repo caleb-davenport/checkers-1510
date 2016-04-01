@@ -8,13 +8,7 @@
 package checkers.pkg1510;
 
 import java.io.File;
-import java.util.Arrays;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.*;
@@ -51,10 +45,11 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       gameBoard.setupBoard("BoardSetups\\standardGame.txt");
-       gameBoard.printDebugBoard();
-       launch(args);
-       System.exit(0);
+        gameBoard.setupBoard("BoardSetups\\standardGame.txt");
+        gameBoard.printDebugBoard();
+        gameBoard.kingPiece(0, 1);
+        gameBoard.printDebugBoard();
+        System.exit(0);
     }
     private void colorBoard(GridPane board) {
         for (int row = 0; row < 8; row++) {
