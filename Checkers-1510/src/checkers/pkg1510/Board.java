@@ -28,7 +28,7 @@ public class Board {
     // in indexing, first element is row, second is column: [row][column]
 
     public enum Square {
-        invalid  (-2, null,  null,  null,  false, "x"),
+        invalid  (-2, null,  null,  null,  false, "X"),
         empty    (-1, null,  null,  false, true,  "_"),
         blackSerf(0,  false, false, true,  true,  "b"),
         redSerf  (1,  true,  false, true,  true,  "r"),
@@ -65,7 +65,7 @@ public class Board {
      */
     public Square decode (String code) {
         switch (code) {
-            case "x": return Square.invalid;
+            case "X": return Square.invalid;
             case "_": return Square.empty;
             case "b": return Square.blackSerf;
             case "r": return Square.redSerf;
@@ -170,36 +170,20 @@ public class Board {
      * 
      */
     public void takePiece(int y1, int x1, int y2, int x2) {
-        takePiece(y1, x1, y2, x2, -1, -1);
-    }
-    
-    /**
-     * 
-     */
-    public void takePiece(int y1, int x1, int y2, int x2, int ytaken, int xtaken) {
-        boolean isRed;
-        boolean isKing;
-        Square square;
+        Square initSquare;
         
-        square = squareAt(y1, x1);
-        isRed = square.isRed();
-        isKing = square.isKing();
-        if (square.isValid() && square.isOccupied()) {
-            switch (square.code) {
-                case "b":
-                    board[y2][x2] = Square.blackSerf;
-                case "B":                    
-                    board[y2][x2] = Square.blackKing;
-                case "r":
-                    board[y2][x2] = Square.redSerf;
-                case "R":
-                    board[y2][x2] = Square.redKing;
-            }
-            if (square.isRed() && square.isKing())
-                board[y2][x2] = Square.redKing;
-            else if (square.isRed() == false)
-                board[y2][x2] = Square.blackKing;
+        int ytaken;
+        int xtaken;
+        
+        initSquare = squareAt(y1, x1);
+        if (initSquare.isValid() && initSquare.isOccupied()) {
+            board[y2][x2] = decode(initSquare.code);
         }
+        
+        ytaken = (y2 + y1) / 2; // Midpoint formula: LOL
+        xtaken = (x2 + x1) / 2;
+        
+        board[ytaken][xtaken] = Square.empty;
+        board[y1][x1] = Square.empty;
     }
-    
 }
