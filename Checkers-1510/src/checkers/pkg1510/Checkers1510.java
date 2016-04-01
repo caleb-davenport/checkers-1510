@@ -45,9 +45,12 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gameBoard.setupBoard("BoardSetups\\standardGame.txt");
+        gameBoard.setupBoard("BoardSetups\\takePieceTest.txt");
         gameBoard.printDebugBoard();
         launch(args);
+        gameBoard.takePiece(5, 2, 3, 0);
+        System.out.println("\n\n\n");
+        gameBoard.printDebugBoard();
         System.exit(0);
     }
     private void colorBoard(GridPane board) {
