@@ -10,6 +10,12 @@ package checkers.pkg1510;
 import java.io.File;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
@@ -17,7 +23,13 @@ public class Checkers1510 extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-    
+       GridPane visualBoard = new GridPane();
+       //visualBoard.setGridLinesVisible(true);
+       configureBoardLayout(visualBoard);
+       colorBoard(visualBoard);
+        BorderPane root = new BorderPane(visualBoard);
+        primaryStage.setScene(new Scene(root, 400, 400));
+        primaryStage.show();
     }
 
     /**
@@ -30,7 +42,38 @@ public class Checkers1510 extends Application {
         gameBoard.printDebugBoard();
         System.exit(0);
     }
+    private void colorBoard(GridPane board) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                board.add(new Rectangle(50, 50, squareColor(col, row)), col, row);
+            }
+        }
+    }
     
+    private Color squareColor(int col, int row) {
+        if (gameBoard.coord(col, row).isValid()) {
+            return Color.web("EEE");
+        } else {
+            return Color.web("999");
+        }
+    }
+    private void configureBoardLayout(GridPane board) {
+       for (int i=0; i<8; i++) {
+	  RowConstraints rowConstraints = new RowConstraints();
+	  rowConstraints.setMinHeight(50);
+	  rowConstraints.setPrefHeight(50);
+	  rowConstraints.setMaxHeight(50);
+	  rowConstraints.setValignment(VPos.CENTER);
+	  board.getRowConstraints().add(rowConstraints);
+          
+          ColumnConstraints colConstraints = new ColumnConstraints();
+	  colConstraints.setMinWidth(50);
+	  colConstraints.setPrefWidth(50);
+	  colConstraints.setMaxWidth(50);
+	  colConstraints.setHalignment(HPos.CENTER);
+	  board.getColumnConstraints().add(colConstraints);
+       }
+    }
     /**
      * Function to set up game based on a profile held in text file.
      * 
