@@ -47,8 +47,7 @@ public class Checkers1510 extends Application {
     public static void main(String[] args) {
         gameBoard.setupBoard("BoardSetups\\standardGame.txt");
         gameBoard.printDebugBoard();
-        gameBoard.kingPiece(0, 1);
-        gameBoard.printDebugBoard();
+        launch(args);
         System.exit(0);
     }
     private void colorBoard(GridPane board) {
@@ -74,6 +73,7 @@ public class Checkers1510 extends Application {
                 }
                 if (square.isValid() && square.isOccupied()) {
                     Circle circle;
+                    Circle kingCircle;
                     if (square.isRed()) {
                         circle = new Circle(25, 25, 20, Color.web("F00"));
                     } else {
@@ -81,10 +81,14 @@ public class Checkers1510 extends Application {
                     }
                     circle.setMouseTransparent(true);
                     board.add(circle, col, row);
+                    if (square.isKing()) {
+                        kingCircle = new Circle(25, 25, 8, Color.web("FFF"));
+                        kingCircle.setMouseTransparent(true);
+                        board.add(kingCircle, col, row);
+                    }
                 }
             }
         }
-        System.out.println(board.getChildren());
     }
     
     private Color squareColor(int col, int row) {
