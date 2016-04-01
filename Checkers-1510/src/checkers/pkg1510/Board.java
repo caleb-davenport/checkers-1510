@@ -164,6 +164,42 @@ public class Board {
             else if (square.isRed() == false)
                 board[y][x] = Square.blackKing;
         }
-    } 
+    }
+    
+    /**
+     * 
+     */
+    public void takePiece(int y1, int x1, int y2, int x2) {
+        takePiece(y1, x1, y2, x2, -1, -1);
+    }
+    
+    /**
+     * 
+     */
+    public void takePiece(int y1, int x1, int y2, int x2, int ytaken, int xtaken) {
+        boolean isRed;
+        boolean isKing;
+        Square square;
+        
+        square = squareAt(y1, x1);
+        isRed = square.isRed();
+        isKing = square.isKing();
+        if (square.isValid() && square.isOccupied()) {
+            switch (square.code) {
+                case "b":
+                    board[y2][x2] = Square.blackSerf;
+                case "B":                    
+                    board[y2][x2] = Square.blackKing;
+                case "r":
+                    board[y2][x2] = Square.redSerf;
+                case "R":
+                    board[y2][x2] = Square.redKing;
+            }
+            if (square.isRed() && square.isKing())
+                board[y2][x2] = Square.redKing;
+            else if (square.isRed() == false)
+                board[y2][x2] = Square.blackKing;
+        }
+    }
     
 }
