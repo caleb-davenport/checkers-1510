@@ -193,7 +193,7 @@ public class Board {
         
         initSquare = squareAt(starty, startx);
         if (initSquare.isValid() && initSquare.isOccupied()) {
-            board[endx][endx] = decode(initSquare.code);
+            board[endy][endx] = decode(initSquare.code);
         }
         
         takeny = (endx + starty) / 2; // Midpoint formula: LOL
