@@ -196,7 +196,7 @@ public class Board {
             board[endy][endx] = decode(initSquare.code);
         }
         
-        takeny = (endx + starty) / 2; // Midpoint formula: LOL
+        takeny = (endy + starty) / 2; // Midpoint formula: LOL
         takenx = (endx + startx) / 2;
         
         board[takeny][takenx] = Square.empty;
