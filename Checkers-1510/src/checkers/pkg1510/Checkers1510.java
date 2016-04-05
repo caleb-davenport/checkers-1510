@@ -18,8 +18,8 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
-    static Board gameBoard = new Board();
-    static boolean debug = false;
+    static Board gameBoard = new Board("BoardSetups\\takePieceTest.txt");
+    public static boolean DEBUG = false;
     
     @Override
     public void start(Stage primaryStage) {
@@ -33,7 +33,6 @@ public class Checkers1510 extends Application {
         visualBoard.redrawPieces();
         gameBoard.takePiece(5, 2, 3, 0);
         visualBoard.redrawPieces();
-        gameBoard.printDebugBoard();
         
         BorderPane root = new BorderPane();
         root.setCenter(visualBoard);
@@ -48,8 +47,6 @@ public class Checkers1510 extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gameBoard.setupBoard("BoardSetups\\takePieceTest.txt");
-        gameBoard.printDebugBoard();
         launch(args);
         System.exit(0);
     }

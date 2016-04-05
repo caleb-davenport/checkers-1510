@@ -5,6 +5,7 @@
  */
 package checkers.pkg1510;
 
+import static checkers.pkg1510.Checkers1510.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -26,7 +27,11 @@ public class Board {
     public Square board[][] = new Square[8][8];
     // Squares are counted from bottom left to top right.
     // in indexing, first element is row, second is column: [row][column]
-
+    
+    Board(String pathStr) {
+        setupBoard(pathStr);
+        if (DEBUG) debug();
+    }
     public enum Square {
         invalid  (-2, null,  null,  null,  false, "X"),
         empty    (-1, null,  null,  false, true,  "_"),
@@ -82,7 +87,7 @@ public class Board {
      * 
      * @param pathStr path to setup file. Pass "" for default game
      */
-    public int setupBoard (String pathStr) {
+    private int setupBoard (String pathStr) {
         Path path;
         int returnVal;
         
@@ -157,6 +162,7 @@ public class Board {
 	  }
 	  System.out.println("");
        }
+        System.out.println("---------------------------------------------------------");
     }
     /**
      * Edits a piece at a given square to be a king
@@ -201,5 +207,8 @@ public class Board {
         
         board[takeny][takenx] = Square.empty;
         board[starty][startx] = Square.empty;
+    }
+    private void debug() {
+        printDebugBoard();
     }
 }

@@ -21,7 +21,7 @@ public class VisualBoard extends GridPane {
     VisualBoard() {
         colorBoard();
         configureBoardLayout();
-        if (debug) debug();
+        if (DEBUG) debug();
     }
     public void redrawPieces() { // !!!Run this at the end of every turn!!!
         Board.Square square;
@@ -43,6 +43,7 @@ public class VisualBoard extends GridPane {
                 }
             }
         }
+        if (DEBUG) gameBoard.printDebugBoard();
     }
     private void configureBoardLayout() {
        for (int i=0; i<8; i++) {
