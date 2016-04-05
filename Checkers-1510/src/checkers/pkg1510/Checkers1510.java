@@ -7,13 +7,9 @@
  */
 package checkers.pkg1510;
 
-import java.io.File;
 import javafx.application.Application;
-import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
@@ -24,11 +20,7 @@ public class Checkers1510 extends Application {
     @Override
     public void start(Stage primaryStage) {
         VisualBoard visualBoard = new VisualBoard();
-       
-        GridPane status = new GridPane();
-        status.getChildren().add(new Rectangle(25, 25, Color.web("00F")));
-        configureStatusPanel(status);
-        status.setGridLinesVisible(true);
+        VisualStatus status = new VisualStatus();
         
         visualBoard.redrawPieces();
         gameBoard.takePiece(5, 2, 3, 0);
@@ -50,32 +42,6 @@ public class Checkers1510 extends Application {
         launch(args);
         System.exit(0);
     }
-    private void configureStatusPanel(GridPane status) {
-       for (int i=0; i<4; i++) {
-	  RowConstraints rowConstraints = new RowConstraints();
-	  rowConstraints.setMinHeight(100);
-	  rowConstraints.setPrefHeight(100);
-	  rowConstraints.setMaxHeight(100);
-	  rowConstraints.setValignment(VPos.CENTER);
-	  status.getRowConstraints().add(rowConstraints);
-       }
-          ColumnConstraints colConstraints = new ColumnConstraints();
-	  colConstraints.setMinWidth(200);
-	  colConstraints.setPrefWidth(200);
-	  colConstraints.setMaxWidth(200);
-	  colConstraints.setHalignment(HPos.CENTER);
-	  status.getColumnConstraints().add(colConstraints);
-    }
-    /**
-     * Function to set up game based on a profile held in text file.
-     * 
-     * @param profile File to load for artifical start of game
-     */
-    private void init(File profile /*=newGame*/) {
-        //read file
-        
-        //implement changes to board
-    };
     
     /**
      * Function to determine a winner, or lack thereof
