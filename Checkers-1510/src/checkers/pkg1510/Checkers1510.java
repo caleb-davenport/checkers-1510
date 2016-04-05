@@ -9,7 +9,6 @@ package checkers.pkg1510;
 
 import java.io.File;
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -20,26 +19,27 @@ import javafx.stage.Stage;
 public class Checkers1510 extends Application {
     
     static Board gameBoard = new Board();
+    static boolean debug = false;
     
     @Override
     public void start(Stage primaryStage) {
-        GridPane visualBoard = new GridPane();
+        VisualBoard visualBoard = new VisualBoard();
        
         GridPane status = new GridPane();
-        BorderPane.setAlignment(status, Pos.TOP_LEFT);
         status.getChildren().add(new Rectangle(25, 25, Color.web("00F")));
         configureStatusPanel(status);
-        visualBoard.setGridLinesVisible(true);
         status.setGridLinesVisible(true);
-        configureBoardLayout(visualBoard);
-        colorBoard(visualBoard);
-        redrawPieces(visualBoard);
+        
+        visualBoard.redrawPieces();
         gameBoard.takePiece(5, 2, 3, 0);
-        redrawPieces(visualBoard);
+        visualBoard.redrawPieces();
         gameBoard.printDebugBoard();
-        BorderPane root = new BorderPane(visualBoard);
-
+        
+        BorderPane root = new BorderPane();
+        root.setCenter(visualBoard);
         root.setRight(status);
+        
+        primaryStage.setTitle("Checkers");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
@@ -52,60 +52,6 @@ public class Checkers1510 extends Application {
         gameBoard.printDebugBoard();
         launch(args);
         System.exit(0);
-    }
-    private void colorBoard(GridPane board) {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                board.add(new Rectangle(50, 50, squareColor(col, row)), col, row);
-            }
-        }
-    }
-    
-    private void redrawPieces(GridPane board) { // !!!Run this at the end of every turn!!!
-        Board.Square square;
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                square = gameBoard.squareAt(row, col);
-                for (Node node : board.getChildren()) {
-                    if (node instanceof VisualPiece && GridPane.getColumnIndex(node) != null) {
-                        if (GridPane.getColumnIndex(node) == col
-                            && GridPane.getRowIndex(node) == row) {
-                        board.getChildren().remove(node);
-                        break;
-                        }
-                    }
-                }
-                if (square.isValid() && square.isOccupied()) {
-                    VisualPiece piece = new VisualPiece(square);
-                    board.add(piece, col, row);
-                }
-            }
-        }
-    }
-    
-    private Color squareColor(int col, int row) {
-        if (gameBoard.squareAt(col, row).isValid()) {
-            return Color.web("EEE");
-        } else {
-            return Color.web("999");
-        }
-    }
-    private void configureBoardLayout(GridPane board) {
-       for (int i=0; i<8; i++) {
-	  RowConstraints rowConstraints = new RowConstraints();
-	  rowConstraints.setMinHeight(50);
-	  rowConstraints.setPrefHeight(50);
-	  rowConstraints.setMaxHeight(50);
-	  rowConstraints.setValignment(VPos.CENTER);
-	  board.getRowConstraints().add(rowConstraints);
-          
-          ColumnConstraints colConstraints = new ColumnConstraints();
-	  colConstraints.setMinWidth(50);
-	  colConstraints.setPrefWidth(50);
-	  colConstraints.setMaxWidth(50);
-	  colConstraints.setHalignment(HPos.CENTER);
-	  board.getColumnConstraints().add(colConstraints);
-       }
     }
     private void configureStatusPanel(GridPane status) {
        for (int i=0; i<4; i++) {

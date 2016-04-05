@@ -7,7 +7,6 @@
 package checkers.pkg1510;
 
 import javafx.scene.*;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -16,10 +15,10 @@ import javafx.scene.shape.Circle;
  * @author Caleb Davenport
  */
 public class VisualPiece extends Group {
+    static Circle circle;
+    static Circle kingCircle;
     public VisualPiece(Board.Square square) {
         super();
-        Circle circle;
-        Circle kingCircle;
         if (square.isRed()) {
             circle = new Circle(25, 25, 20, Color.web("F00"));
         } else {
