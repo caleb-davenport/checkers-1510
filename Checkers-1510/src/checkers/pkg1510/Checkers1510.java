@@ -34,6 +34,9 @@ public class Checkers1510 extends Application {
         configureBoardLayout(visualBoard);
         colorBoard(visualBoard);
         redrawPieces(visualBoard);
+        gameBoard.takePiece(5, 2, 3, 0);
+        redrawPieces(visualBoard);
+        gameBoard.printDebugBoard();
         BorderPane root = new BorderPane(visualBoard);
 
         root.setRight(status);
@@ -48,9 +51,6 @@ public class Checkers1510 extends Application {
         gameBoard.setupBoard("BoardSetups\\takePieceTest.txt");
         gameBoard.printDebugBoard();
         launch(args);
-        gameBoard.takePiece(5, 2, 3, 0);
-        System.out.println("\n\n\n");
-        gameBoard.printDebugBoard();
         System.exit(0);
     }
     private void colorBoard(GridPane board) {
@@ -67,28 +67,17 @@ public class Checkers1510 extends Application {
             for (int col = 0; col < 8; col++) {
                 square = gameBoard.squareAt(row, col);
                 for (Node node : board.getChildren()) {
-                    if (node instanceof Circle
-                            && GridPane.getColumnIndex(node) == col
+                    if (node instanceof VisualPiece && GridPane.getColumnIndex(node) != null) {
+                        if (GridPane.getColumnIndex(node) == col
                             && GridPane.getRowIndex(node) == row) {
                         board.getChildren().remove(node);
                         break;
+                        }
                     }
                 }
                 if (square.isValid() && square.isOccupied()) {
-                    Circle circle;
-                    Circle kingCircle;
-                    if (square.isRed()) {
-                        circle = new Circle(25, 25, 20, Color.web("F00"));
-                    } else {
-                        circle = new Circle(25, 25, 20, Color.web("000"));
-                    }
-                    circle.setMouseTransparent(true);
-                    board.add(circle, col, row);
-                    if (square.isKing()) {
-                        kingCircle = new Circle(25, 25, 8, Color.web("FFF"));
-                        kingCircle.setMouseTransparent(true);
-                        board.add(kingCircle, col, row);
-                    }
+                    VisualPiece piece = new VisualPiece(square);
+                    board.add(piece, col, row);
                 }
             }
         }
