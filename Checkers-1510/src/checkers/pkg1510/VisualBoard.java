@@ -17,6 +17,7 @@ import javafx.scene.*;
  */
 public class VisualBoard extends GridPane {
     static VisualTile[][] tiles = new VisualTile[8][8];
+    static int[] activeCoord = new int[2];
     
     VisualBoard() {
         colorBoard();
@@ -31,9 +32,9 @@ public class VisualBoard extends GridPane {
                 for (Node node : this.getChildren()) {
                     if (node instanceof VisualPiece && GridPane.getColumnIndex(node) != null) {
                         if (GridPane.getColumnIndex(node) == col
-                            && GridPane.getRowIndex(node) == row) {
-                        this.getChildren().remove(node);
-                        break;
+                                && GridPane.getRowIndex(node) == row) {
+                            this.getChildren().remove(node);
+                            break;
                         }
                     }
                 }
@@ -79,14 +80,21 @@ public class VisualBoard extends GridPane {
                 }
             }
         }
-        return false;
+        return false; 
     }
     public static void highlight(int row, int col) {
-        unHighlightAll();
         Board.Square square = gameBoard.squareAt(row, col);
-        if (!anyHighlight() && square.isValid() && square.isOccupied()) {
+        if (square.isValid() && square.isOccupied()) {
+            unHighlightAll();
             tiles[row][col].highlight(true);
+            activeCoord[0] = row;
+            activeCoord[1] = col;
+        } else if (anyHighlight() && square.isValid() && !square.isOccupied()) {
+            Checkers1510.gameBoard.movePiece(activeCoord[0], activeCoord[1], row, col);
+            if (DEBUG) System.out.println(activeCoord[0] + ", " + activeCoord[1] + ", " + row + ", " + col);
+            unHighlightAll();
         }
+        Checkers1510.visualBoard.redrawPieces();
     }
     public static void unHighlightAll() {
         for (int row = 0; row < 8; row++) {
