@@ -14,13 +14,13 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
+    public static boolean DEBUG = false; //ENABLE/DISABLE DEBUG MODE
     static Board gameBoard = new Board("BoardSetups\\takePieceTest.txt");
-    public static boolean DEBUG = false;
+    static VisualBoard visualBoard = new VisualBoard();
+    static VisualStatus status = new VisualStatus();
     
     @Override
     public void start(Stage primaryStage) {
-        VisualBoard visualBoard = new VisualBoard();
-        VisualStatus status = new VisualStatus();
         
         visualBoard.redrawPieces();
         gameBoard.takePiece(5, 2, 3, 0);

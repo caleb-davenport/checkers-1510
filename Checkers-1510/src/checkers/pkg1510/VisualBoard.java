@@ -9,8 +9,6 @@ package checkers.pkg1510;
 import static checkers.pkg1510.Checkers1510.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.*;
 
 /**
@@ -18,6 +16,8 @@ import javafx.scene.*;
  * @author Caleb Davenport
  */
 public class VisualBoard extends GridPane {
+    static VisualTile[][] tiles = new VisualTile[8][8];
+    
     VisualBoard() {
         colorBoard();
         configureBoardLayout();
@@ -62,18 +62,36 @@ public class VisualBoard extends GridPane {
 	  getColumnConstraints().add(colConstraints);
        }
     }
-    private Color squareColor(int col, int row) {
-        if (gameBoard.squareAt(col, row).isValid()) {
-            return Color.web("EEE");
-        } else {
-            return Color.web("999");
-        }
-    }
+
     private void colorBoard() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                Rectangle rect = new Rectangle(50, 50, squareColor(col, row));
-                add(rect, col, row);
+                tiles[row][col] = new VisualTile(col, row);
+                add(tiles[row][col], col, row);
+            }
+        }
+    }
+    private static boolean anyHighlight() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (tiles[row][col].active == true) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static void highlight(int row, int col) {
+        unHighlightAll();
+        Board.Square square = gameBoard.squareAt(row, col);
+        if (!anyHighlight() && square.isValid() && square.isOccupied()) {
+            tiles[row][col].highlight(true);
+        }
+    }
+    public static void unHighlightAll() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                tiles[row][col].highlight(false);
             }
         }
     }
