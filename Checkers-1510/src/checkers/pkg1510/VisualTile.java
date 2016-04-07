@@ -66,7 +66,13 @@ public class VisualTile extends Group {
     @Override
     public void handle(MouseEvent e) {
         if (DEBUG) debug();
-        VisualBoard.highlight(row, col);
+        highlight(row, col);
+    }
+    private void highlight(int row, int col) {
+        if (active) {
+            VisualBoard.unHighlightAll();
+            active = false;
+        } else VisualBoard.highlight(row, col);
     }
     private void debug() {
         System.out.println("You clicked a tile at (" + col + ", " + row + ")");
