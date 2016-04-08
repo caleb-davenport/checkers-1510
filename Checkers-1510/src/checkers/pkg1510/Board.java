@@ -208,6 +208,42 @@ public class Board {
         board[takeny][takenx] = Square.empty;
         board[starty][startx] = Square.empty;
     }
+    
+    public boolean jumpAvailable(int startx, int starty){
+        Square initSquare;
+        boolean jump;
+        jump = false;
+        initSquare = squareAt(starty, startx);
+        if(PlayerIsRed) {
+            if (squareAt(starty - 1, startx - 1).isOccupied()) {
+                if (DEBUG) System.out.println("There is a piece to the top-left");
+                if (!squareAt(starty - 1, startx - 1).isRed) {
+                    if(!squareAt(starty - 2, startx - 2).isOccupied()) jump = true; //to left
+                }
+            }
+            if (squareAt(starty - 1, startx + 1).isOccupied()) {
+                if (DEBUG) System.out.println("There is a piece to the top-right");
+                if (!squareAt(starty - 1, startx + 1).isRed) {
+                    if(!squareAt(starty - 2, startx + 2).isOccupied()) jump = true; //to right   
+                }
+            }
+        } else {
+            if (squareAt(starty + 1, startx - 1).isOccupied()) {
+                if (DEBUG) System.out.println("There is a piece to the bottom-left");
+                if (squareAt(starty + 1, startx - 1).isRed) {
+                   if(!squareAt(starty + 2, startx - 2).isOccupied()) jump = true; //to left
+                }
+            }
+            if (squareAt(starty + 1, startx + 1).isOccupied()) {
+                if (DEBUG) System.out.println("There is a piece to the bottom-right");
+                if (squareAt(starty + 1, startx + 1).isRed) {
+                   if(!squareAt(starty + 2, startx + 2).isOccupied()) jump = true; //to right
+                }
+            }
+        }
+        return jump;
+    }
+    
     private void debug() {
         printDebugBoard();
     }

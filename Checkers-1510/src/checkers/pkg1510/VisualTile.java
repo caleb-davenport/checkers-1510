@@ -65,8 +65,8 @@ public class VisualTile extends Group {
     }
     @Override
     public void handle(MouseEvent e) {
-        if (DEBUG) debug();
         highlight(row, col);
+        if (DEBUG) debug();
     }
     private void highlight(int row, int col) {
         if (active) VisualBoard.unHighlightAll();
@@ -74,6 +74,7 @@ public class VisualTile extends Group {
     }
     private void debug() {
         System.out.println("You clicked a tile at (" + col + ", " + row + ")");
+        System.out.println(Checkers1510.gameBoard.jumpAvailable(col, row));
     }
 }
 }
