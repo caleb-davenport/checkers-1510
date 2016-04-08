@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.*;
 
 /**
  * 
@@ -21,13 +22,21 @@ public class VisualStatus extends GridPane {
     Label currentPlayer = new Label("RED");
     VisualStatus() {
         configureStatusPanel();
+        currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
+        currentPlayer.setTextFill(Color.web("F00"));
         super.add(new Rectangle(25, 25, Color.web("00F")), 0, 1);
         super.add(currentPlayer, 0, 0);
         if (DEBUG) debug();
     }
     public final void updatePlayer() {
-        if (Checkers1510.PlayerIsRed) currentPlayer.setText("RED");
-        else currentPlayer.setText("BLACK");
+        if (Checkers1510.PlayerIsRed) {
+            currentPlayer.setText("RED");
+            currentPlayer.setTextFill(Color.web("F00"));
+        }
+        else {
+            currentPlayer.setText("BLACK");
+            currentPlayer.setTextFill(Color.web("000"));
+        }
     }
     private void configureStatusPanel() {
        for (int i=0; i<4; i++) {
