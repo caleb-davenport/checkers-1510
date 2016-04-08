@@ -18,6 +18,7 @@ public class Checkers1510 extends Application {
     static Board gameBoard = new Board("BoardSetups\\takePieceTest.txt");
     static VisualBoard visualBoard = new VisualBoard();
     static VisualStatus status = new VisualStatus();
+    static boolean PlayerIsRed = true;
     
     @Override
     public void start(Stage primaryStage) {
@@ -42,7 +43,13 @@ public class Checkers1510 extends Application {
         launch(args);
         System.exit(0);
     }
-    
+    public static void performMove(int startx, int starty, int stopx, int stopy) {
+        gameBoard.movePiece(startx, starty, stopx, stopy);
+        if (DEBUG) System.out.println(startx + ", " + starty + ", " + stopx + ", " + stopy);
+        
+        PlayerIsRed = !PlayerIsRed;
+        status.updatePlayer();
+    }
     /**
      * Function to determine a winner, or lack thereof
      * 

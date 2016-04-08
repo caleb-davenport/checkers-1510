@@ -84,14 +84,13 @@ public class VisualBoard extends GridPane {
     }
     public static void highlight(int row, int col) {
         Board.Square square = gameBoard.squareAt(row, col);
-        if (square.isValid() && square.isOccupied()) {
+        if (square.isValid() && square.isOccupied() && !(square.isRed() ^ Checkers1510.PlayerIsRed)) {
             unHighlightAll();
             tiles[row][col].highlight(true);
             activeCoord[0] = row;
             activeCoord[1] = col;
         } else if (anyHighlight() && square.isValid() && !square.isOccupied()) {
-            Checkers1510.gameBoard.movePiece(activeCoord[0], activeCoord[1], row, col);
-            if (DEBUG) System.out.println(activeCoord[0] + ", " + activeCoord[1] + ", " + row + ", " + col);
+            Checkers1510.performMove(activeCoord[0], activeCoord[1], row, col);
             unHighlightAll();
         }
         Checkers1510.visualBoard.redrawPieces();

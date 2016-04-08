@@ -8,6 +8,7 @@ package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
 import javafx.geometry.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,10 +18,16 @@ import javafx.scene.shape.Rectangle;
  * @author Caleb Davenport
  */
 public class VisualStatus extends GridPane {
+    Label currentPlayer = new Label("RED");
     VisualStatus() {
         configureStatusPanel();
-        super.getChildren().add(new Rectangle(25, 25, Color.web("00F")));
+        super.add(new Rectangle(25, 25, Color.web("00F")), 0, 1);
+        super.add(currentPlayer, 0, 0);
         if (DEBUG) debug();
+    }
+    public final void updatePlayer() {
+        if (Checkers1510.PlayerIsRed) currentPlayer.setText("RED");
+        else currentPlayer.setText("BLACK");
     }
     private void configureStatusPanel() {
        for (int i=0; i<4; i++) {
