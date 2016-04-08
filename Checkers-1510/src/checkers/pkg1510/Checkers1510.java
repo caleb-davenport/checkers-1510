@@ -7,6 +7,7 @@
  */
 package checkers.pkg1510;
 
+import java.util.Iterator;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -43,6 +44,7 @@ public class Checkers1510 extends Application {
         launch(args);
         System.exit(0);
     }
+    
     public static void performMove(int startx, int starty, int stopx, int stopy) {
         gameBoard.movePiece(startx, starty, stopx, stopy);
         if (DEBUG) System.out.println(startx + ", " + starty + ", " + stopx + ", " + stopy);
@@ -50,39 +52,21 @@ public class Checkers1510 extends Application {
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
     }
-    /**
-     * Function to determine a winner, or lack thereof
-     * 
-     * @return Who has won or null for no winner
-     */
-    private String isWon() {
-        String winner = null;
-        return winner;
+    
+    public Move[] getAvailMoves(int y, int x) {
+        int[][] spcSeed;
+        Move[] possibleMoves;
+        
+        if (gameBoard.squareAt(y, x).isKing()) {
+            spcSeed = new int[][]{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+        } else {
+            spcSeed = new int[][]{{1, 1}, {1, -1}};
+        } 
+        for (int i = 0; i < spcSeed.length; ++i) {
+            if (!gameBoard.squareAt(y + spcSeed[i, 0], x + spcSeed[i, 1]).isOccupied()) {
+            possibleMoves;
+        }
+        }
     }
     
-    /**
-     * Convert move from String input
-     * 
-     * @return Move as char[x1,y1,x2,y2]
-     */
-    private char[] getMove(String move) {
-        char[] loc = new char[4];
-        return loc;
-    }
-    
-    /**
-     * Function to test if a move is valid
-     * 
-     * @return Boolean value of whether move is valid or not
-     */
-    private boolean isValid() {
-        boolean valid = false;
-        return valid;
-    }
-     /**
-      * Function to update game state variables
-      * @param move Move to be added in char[x1,y1, x2, y2] format
-      */
-    private void update(char[] move) {
-    }
 }

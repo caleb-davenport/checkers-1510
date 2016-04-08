@@ -208,6 +208,7 @@ public class Board {
         board[takeny][takenx] = Square.empty;
         board[starty][startx] = Square.empty;
     }
+    
     private void debug() {
         printDebugBoard();
     }
