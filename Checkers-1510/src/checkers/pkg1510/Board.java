@@ -198,7 +198,7 @@ public class Board {
         board[starty][startx] = Square.empty;
     }
     
-    private boolean canJump(int starty, int startx, boolean isKing) {
+    public boolean canJump(int starty, int startx, boolean isKing) {
         boolean jump;
         jump = false;
         if (PlayerIsRed || isKing) {
