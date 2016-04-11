@@ -76,7 +76,7 @@ public class Board {
      * Loads board into program variables from text file
      * @param pathStr path to setup file. Pass "" for default game
      */
-    private int setupBoard (String pathStr) {
+    public int setupBoard (String pathStr) {
         Path path;
         int returnVal;
         

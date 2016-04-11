@@ -2,9 +2,13 @@
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
+import static checkers.pkg1510.VisualBoard.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.layout.*;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
@@ -13,13 +17,23 @@ public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
     Label currentPlayer = new Label("RED");
+    Button newGame = new Button("New Game");
     VisualStatus() {
         configureStatusPanel();
         setBackground();
         currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
         currentPlayer.setTextFill(Color.web("F00"));
+        newGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            PlayerIsRed = true; 
+            gameBoard.setupBoard("BoardSetups\\kingJumpTest.txt");
+            visualBoard.redrawPieces();
+            updatePlayer();
+            unHighlightAll();
+            }
+        });
         super.add(currentPlayer, 1, 0);
-        super.add(new Rectangle(25, 25, Color.web("00F")), 1, 1);
+        super.add(newGame, 1, 1);
         if (DEBUG) debug();
     }
     public final void updatePlayer() {
