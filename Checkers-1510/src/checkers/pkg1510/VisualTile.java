@@ -27,8 +27,8 @@ public class VisualTile extends Group {
     VisualTile(int col, int row) {
         this.col = col;
         this.row = row;
-        this.isValid = gameBoard.squareAt(col, row).isValid();
-        if (isValid) this.isOccupied = gameBoard.squareAt(col, row).isOccupied();
+        this.isValid = gameBoard.squareAt(row, col).isValid();
+        if (isValid) this.isOccupied = gameBoard.squareAt(row, col).isOccupied();
         
         highlight.setMouseTransparent(true);
         main.setWidth(50);
@@ -74,7 +74,7 @@ public class VisualTile extends Group {
     }
     private void debug() {
         System.out.println("You clicked a tile at (" + col + ", " + row + ")");
-        System.out.println(Checkers1510.gameBoard.jumpAvailable(col, row));
+        System.out.println(Checkers1510.gameBoard.jumpAvailable(row, col, gameBoard.squareAt(row, col).isKing()));
     }
 }
 }

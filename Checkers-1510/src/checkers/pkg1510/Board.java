@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.shape.Shape;
 
 
 /**
@@ -132,7 +131,7 @@ public class Board {
      * 
      * @return state of the square as int (perhaps enum)
      */
-    public Square squareAt(int y, int x) {
+    public Square squareAt(int y, int x) { //y is row, x is col
         return board[y][x];
     }
     
@@ -208,13 +207,13 @@ public class Board {
         board[takeny][takenx] = Square.empty;
         board[starty][startx] = Square.empty;
     }
-    
-    public boolean jumpAvailable(int startx, int starty){
-        Square initSquare;
+    public boolean jumpAvailable(int x, int y) {
+        return jumpAvailable(x, y, false);
+    }
+    public boolean jumpAvailable(int starty, int startx, boolean isKing){
         boolean jump;
         jump = false;
-        initSquare = squareAt(starty, startx);
-        if(PlayerIsRed) {
+        if (PlayerIsRed || isKing) {
             if (squareAt(starty - 1, startx - 1).isOccupied()) {
                 if (DEBUG) System.out.println("There is a piece to the top-left");
                 if (!squareAt(starty - 1, startx - 1).isRed) {
@@ -227,7 +226,8 @@ public class Board {
                     if(!squareAt(starty - 2, startx + 2).isOccupied()) jump = true; //to right   
                 }
             }
-        } else {
+        }
+        if (!PlayerIsRed || isKing) {
             if (squareAt(starty + 1, startx - 1).isOccupied()) {
                 if (DEBUG) System.out.println("There is a piece to the bottom-left");
                 if (squareAt(starty + 1, startx - 1).isRed) {

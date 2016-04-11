@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
-    public static boolean DEBUG = false; //ENABLE/DISABLE DEBUG MODE
-    static Board gameBoard = new Board("BoardSetups\\takePieceTest.txt");
+    public static boolean DEBUG = true; //ENABLE/DISABLE DEBUG MODE
+    static Board gameBoard = new Board("BoardSetups\\kingJumpTest.txt");
     static VisualBoard visualBoard = new VisualBoard();
     static VisualStatus status = new VisualStatus();
     static boolean PlayerIsRed = true;
@@ -25,8 +25,8 @@ public class Checkers1510 extends Application {
     public void start(Stage primaryStage) {
         
         visualBoard.redrawPieces();
-        gameBoard.takePiece(5, 2, 3, 0);
-        visualBoard.redrawPieces();
+        /*gameBoard.takePiece(5, 2, 3, 0);
+        visualBoard.redrawPieces();*/
         
         BorderPane root = new BorderPane();
         root.setCenter(visualBoard);
