@@ -63,6 +63,8 @@ public class Checkers1510 extends Application {
         gameBoard.kingPieces();
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
+        if(isWon())
+            System.out.println("You Win!");
     }
     
     /*public Move[] getAvailMoves(int y, int x) {
@@ -80,5 +82,30 @@ public class Checkers1510 extends Application {
         }
         }
     }*/
-    
+    public static boolean isWon(){
+        boolean win;
+        win = true;
+        
+        if(PlayerIsRed){
+          for (int row = 0; row < 8; row++) {
+             for (int col = 0; col < 8; col++) {
+                 if(gameBoard.squareAt(row, col).isRed() || !gameBoard.squareAt(row, col).isValid()) //change to if you have no moves
+                     continue;
+                 else;
+                 win = false;
+             }   
+           } 
+        }
+        if(!PlayerIsRed){
+          for (int row = 0; row < 8; row++) {
+             for (int col = 0; col < 8; col++) {
+                 if(!gameBoard.squareAt(row, col).isRed() || !gameBoard.squareAt(row, col).isValid())
+                     continue;
+                 else;
+                 win = false;
+             }   
+           } 
+        }
+        return win;
+    }
 }
