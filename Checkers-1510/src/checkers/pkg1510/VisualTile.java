@@ -65,7 +65,7 @@ public class VisualTile extends Group {
     }
     private void debug() {
         System.out.println("You clicked a tile at (" + col + ", " + row + ")");
-        System.out.println(Checkers1510.gameBoard.jumpAvailable(row, col, gameBoard.squareAt(row, col).isKing()));
+        System.out.println("JUMP AVAILABLE?: " + gameBoard.anyJump());
     }
 }
 }

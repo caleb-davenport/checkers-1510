@@ -198,9 +198,7 @@ public class Board {
         board[starty][startx] = Square.empty;
     }
     
-    public boolean jumpAvailable(int x, int y) { return jumpAvailable(x, y, false); }
-    
-    public boolean jumpAvailable(int starty, int startx, boolean isKing) {
+    private boolean canJump(int starty, int startx, boolean isKing) {
         boolean jump;
         jump = false;
         if (PlayerIsRed || isKing) {
@@ -249,7 +247,20 @@ public class Board {
         }
         return jump;
     }
-    
+    public boolean anyJump() {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                try {
+                    if (!squareAt(i, j).isRed() ^ PlayerIsRed) {
+                        if (canJump(i, j, squareAt(i, j).isKing())) return true;
+                    }
+                } catch (Exception e) {
+                    continue;
+                }
+            }
+        }
+        return false;
+    }
     private void debug() {
         printDebugBoard();
     }
