@@ -82,8 +82,7 @@ public class VisualBoard extends GridPane {
             activeCoord[0] = row;
             activeCoord[1] = col;
         } else if (anyHighlight() && square.isValid() && !square.isOccupied()) {
-            Checkers1510.performMove(activeCoord[0], activeCoord[1], row, col);
-            unHighlightAll();
+            Checkers1510.performMove(new Move(activeCoord[0], activeCoord[1], row, col));
         }
     }
     public static void unHighlightAll() {
