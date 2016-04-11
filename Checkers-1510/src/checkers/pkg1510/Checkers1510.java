@@ -63,6 +63,7 @@ public class Checkers1510 extends Application {
         gameBoard.kingPieces();
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
+        status.winner(); // move int if statment after debug
         if(isWon())
             System.out.println("You Win!");
     }
