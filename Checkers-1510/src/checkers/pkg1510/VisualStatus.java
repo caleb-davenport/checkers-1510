@@ -17,15 +17,19 @@ public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
     Label currentPlayer = new Label("RED");
+    Label winner = new Label("Wins!");
     Button newGame = new Button("New Game");
     VisualStatus() {
         configureStatusPanel();
         setBackground();
         currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
         currentPlayer.setTextFill(Color.web("F00"));
+        winner.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
+        winner.setTextFill(Color.web("F00", 0));
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            PlayerIsRed = true; 
+            PlayerIsRed = true;
+            winner.setTextFill(Color.web("F00", 0));
             gameBoard.setupBoard(BOARD_LOCATION);
             visualBoard.redrawPieces();
             updatePlayer();
@@ -33,8 +37,16 @@ public class VisualStatus extends GridPane {
             }
         });
         super.add(currentPlayer, 1, 0);
-        super.add(newGame, 1, 1);
+        super.add(winner, 1, 1);
+        super.add(newGame, 1, 2);
+        
         if (DEBUG) debug();
+    }
+    public void winner(){
+        if (Checkers1510.PlayerIsRed)     
+            winner.setTextFill(Color.web("F00"));
+        else
+            winner.setTextFill(Color.web("000"));
     }
     public final void updatePlayer() {
         if (Checkers1510.PlayerIsRed) {
