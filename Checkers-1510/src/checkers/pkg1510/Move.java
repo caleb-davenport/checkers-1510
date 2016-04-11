@@ -8,7 +8,8 @@ public class Move {
     
     public enum MoveType {
         step,
-        jump
+        jump,
+        illegal
     }
     private MoveType movetype;
     
@@ -26,12 +27,12 @@ public class Move {
     }
     
     private void discernType() {
-        if (startY - endY == 2 && startX - endX == 2) {
+        if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
             movetype = MoveType.jump;
-        } else if (startY - endY == 1 && startX - endX == 1) {
+        } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) == 1) {
             movetype = MoveType.step;
         } else {
-            movetype = null;
+            movetype = MoveType.illegal;
             moveError = true;
         }
     }
