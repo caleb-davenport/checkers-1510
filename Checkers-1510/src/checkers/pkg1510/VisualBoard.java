@@ -13,9 +13,10 @@ public class VisualBoard extends GridPane {
     VisualBoard() {
         colorBoard();
         configureBoardLayout();
+        redrawPieces();
         if (DEBUG) debug();
     }
-    public void redrawPieces() { // !!!Run this at the end of every turn!!!
+    public final void redrawPieces() { // !!!Run this at the end of every turn!!!
         Board.Square square;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -84,7 +85,6 @@ public class VisualBoard extends GridPane {
             Checkers1510.performMove(activeCoord[0], activeCoord[1], row, col);
             unHighlightAll();
         }
-        Checkers1510.visualBoard.redrawPieces();
     }
     public static void unHighlightAll() {
         for (int row = 0; row < 8; row++) {

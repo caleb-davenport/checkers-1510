@@ -22,11 +22,6 @@ public class Checkers1510 extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
-        visualBoard.redrawPieces();
-        /*gameBoard.takePiece(5, 2, 3, 0);
-        visualBoard.redrawPieces();*/
-        
         BorderPane root = new BorderPane();
         root.setCenter(visualBoard);
         root.setRight(status);
@@ -51,6 +46,7 @@ public class Checkers1510 extends Application {
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
         gameBoard.kingPieces();
+        visualBoard.redrawPieces();
     }
     
     /*public Move[] getAvailMoves(int y, int x) {
