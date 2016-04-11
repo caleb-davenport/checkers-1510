@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package checkers.pkg1510;
 import static checkers.pkg1510.Checkers1510.*;
@@ -12,10 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.*;
 
-/**
- * 
- * @author Caleb Davenport
- */
 public class VisualTile extends Group {
     int col, row;
     boolean isValid;

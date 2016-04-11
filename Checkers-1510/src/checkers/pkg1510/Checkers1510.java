@@ -7,7 +7,6 @@
  */
 package checkers.pkg1510;
 
-import java.util.Iterator;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -51,6 +50,7 @@ public class Checkers1510 extends Application {
         
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
+        gameBoard.kingPieces();
     }
     
     /*public Move[] getAvailMoves(int y, int x) {

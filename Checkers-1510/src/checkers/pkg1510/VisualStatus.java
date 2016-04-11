@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package checkers.pkg1510;
 
@@ -14,13 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
-/**
- * 
- * @author Caleb Davenport
- */
 public class VisualStatus extends GridPane {
-    private int BORDER_WIDTH = 4;
-    private int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
+    private final int BORDER_WIDTH = 4;
+    private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
     Label currentPlayer = new Label("RED");
     VisualStatus() {
         configureStatusPanel();
