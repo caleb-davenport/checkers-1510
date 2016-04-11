@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Checkers1510 extends Application {
     
     public static final String BOARD_LOCATION = "BoardSetups\\standardGame.txt";
-    public static boolean DEBUG = true; //ENABLE/DISABLE DEBUG MODE
+    public static boolean DEBUG = false; //ENABLE/DISABLE DEBUG MODE
     static Board gameBoard = new Board(BOARD_LOCATION);
     static VisualBoard visualBoard = new VisualBoard();
     static VisualStatus status = new VisualStatus();
@@ -53,6 +53,8 @@ public class Checkers1510 extends Application {
         } else if (!gameBoard.anyJump() && move.getMoveType() == Move.MoveType.step) {
             gameBoard.movePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
             endTurn();
+        } else {
+            status.jumpAvailable();
         }
         //gameBoard.movePiece(startx, starty, stopx, stopy);
         //if (DEBUG) System.out.println(startx + ", " + starty + ", " + stopx + ", " + stopy); 
@@ -63,6 +65,7 @@ public class Checkers1510 extends Application {
         gameBoard.kingPieces();
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
+        status.clearNotice();
         if(isWon())
             System.out.println("You Win!");
     }
