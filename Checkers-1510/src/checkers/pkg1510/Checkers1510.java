@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
+    public static final String BOARD_LOCATION = "BoardSetups\\standardGame.txt";
     public static boolean DEBUG = true; //ENABLE/DISABLE DEBUG MODE
-    static Board gameBoard = new Board("BoardSetups\\kingJumpTest.txt");
+    static Board gameBoard = new Board(BOARD_LOCATION);
     static VisualBoard visualBoard = new VisualBoard();
     static VisualStatus status = new VisualStatus();
     static boolean PlayerIsRed = true;

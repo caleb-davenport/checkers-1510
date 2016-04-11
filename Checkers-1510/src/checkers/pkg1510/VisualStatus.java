@@ -26,7 +26,7 @@ public class VisualStatus extends GridPane {
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             PlayerIsRed = true; 
-            gameBoard.setupBoard("BoardSetups\\kingJumpTest.txt");
+            gameBoard.setupBoard(BOARD_LOCATION);
             visualBoard.redrawPieces();
             updatePlayer();
             unHighlightAll();
