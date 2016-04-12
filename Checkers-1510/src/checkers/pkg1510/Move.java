@@ -5,6 +5,7 @@ public class Move {
     
     private final int startY, startX;
     private final int endY, endX;
+    private final Board.Square startSquare;
     
     public enum MoveType {
         step,
@@ -15,11 +16,12 @@ public class Move {
     
     private boolean moveError;
     
-    Move(int stY, int stX, int enY, int enX) {
+    Move(int stY, int stX, int enY, int enX, Board.Square stSq) {
         startY = stY;
         startX = stX;
         endY = enY;
         endX = enX;
+        startSquare = stSq;
         
         moveError = false;
         
@@ -27,7 +29,13 @@ public class Move {
     }
     
     private void discernType() {
-        if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
+        if (startSquare.isRed() && (endY - startY) > 0 && !startSquare.isKing()) {
+            movetype = MoveType.illegal;
+            moveError = true;
+        } else if (!startSquare.isRed() && (endY - startY) < 0 && !startSquare.isKing()) {
+            movetype = MoveType.illegal;
+            moveError = true;
+        } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
             movetype = MoveType.jump;
         } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) == 1) {
             movetype = MoveType.step;
