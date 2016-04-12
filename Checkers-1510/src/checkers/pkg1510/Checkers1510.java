@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
-    public static final String BOARD_LOCATION = "BoardSetups\\standardGame.txt";
-    public static boolean DEBUG = true; //ENABLE/DISABLE DEBUG MODE
+    public static final String BOARD_LOCATION = "BoardSetups\\kingJumpTest.txt";
+    public static boolean DEBUG = false; //ENABLE/DISABLE DEBUG MODE
     static Board gameBoard = new Board(BOARD_LOCATION);
     static VisualBoard visualBoard = new VisualBoard();
     static VisualStatus status = new VisualStatus();
@@ -40,9 +40,11 @@ public class Checkers1510 extends Application {
         System.exit(0);
     }
     
-    public static void performMove(Move move/*int startx, int starty, int stopx, int stopy*/) {
+    public static void performMove(Move move) {
         if (gameBoard.anyJump() && move.getMoveType() == Move.MoveType.jump) {
-            gameBoard.takePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
+            if (gameBoard.getJumpPiece(move).isRed() ^ PlayerIsRed) {
+                gameBoard.takePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
+            }
             if (gameBoard.canJump(move.getEndY(), move.getEndX(), gameBoard.squareAt(move.getEndY(), move.getEndX()).isKing())) {
                 VisualBoard.unHighlightAll();
                 VisualBoard.highlight(move.getEndY(), move.getEndX());
@@ -53,18 +55,24 @@ public class Checkers1510 extends Application {
         } else if (!gameBoard.anyJump() && move.getMoveType() == Move.MoveType.step) {
             gameBoard.movePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
             endTurn();
+        } else {
+            status.jumpAvailable();
         }
-        //gameBoard.movePiece(startx, starty, stopx, stopy);
-        //if (DEBUG) System.out.println(startx + ", " + starty + ", " + stopx + ", " + stopy); 
+        if (DEBUG) System.out.println(move.getStartY() + ", " + move.getStartX() + ", " + move.getEndY() + ", " + move.getEndX()); 
     }
     public static void endTurn() {
+        if(isWon()) {
+            System.out.println("You Win!");
+            status.winner();
+        }
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
         gameBoard.kingPieces();
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
-        status.winner(); // move int if statment after debug
-        if (false)
-            System.out.println("You Win!");
+        status.clearNotice();
+    }
+    public static boolean isWon() {
+      return !(gameBoard.anyStep() || gameBoard.anyJump());  
     }
 }

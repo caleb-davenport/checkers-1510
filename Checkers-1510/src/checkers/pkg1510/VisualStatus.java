@@ -18,6 +18,7 @@ public class VisualStatus extends GridPane {
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
     Label currentPlayer = new Label("RED");
     Label winner = new Label("Wins!");
+    Label notice = new Label("");
     Button newGame = new Button("New Game");
     VisualStatus() {
         configureStatusPanel();
@@ -39,14 +40,9 @@ public class VisualStatus extends GridPane {
         super.add(currentPlayer, 1, 0);
         super.add(winner, 1, 1);
         super.add(newGame, 1, 2);
+        super.add(notice, 1, 3);
         
         if (DEBUG) debug();
-    }
-    public void winner(){
-        if (Checkers1510.PlayerIsRed)     
-            winner.setTextFill(Color.web("F00"));
-        else
-            winner.setTextFill(Color.web("000"));
     }
     public final void updatePlayer() {
         if (Checkers1510.PlayerIsRed) {
@@ -96,4 +92,18 @@ public class VisualStatus extends GridPane {
     private void debug() {
         this.setGridLinesVisible(true);
     }
+
+    public final void jumpAvailable() {
+        notice.setText("You have a jump available!");
+    }
+    public final void clearNotice() {
+        notice.setText("");
+    }
+    public void winner() {
+        if (Checkers1510.PlayerIsRed)     
+            winner.setTextFill(Color.web("F00"));
+        else
+            winner.setTextFill(Color.web("000"));
+    }
+        
 }
