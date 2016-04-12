@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
@@ -15,13 +11,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.shape.Shape;
 
 
-/**
- *
- * @author rmartin-
- */
 public class Board {
 
     public Square board[][] = new Square[8][8];
@@ -83,11 +74,9 @@ public class Board {
     
     /**
      * Loads board into program variables from text file
-     * @auth Roan
-     * 
      * @param pathStr path to setup file. Pass "" for default game
      */
-    private int setupBoard (String pathStr) {
+    public int setupBoard (String pathStr) {
         Path path;
         int returnVal;
         
@@ -128,8 +117,8 @@ public class Board {
     
     /**
      * Returns the state of an given square
-     * @auth Caleb
-     * 
+     * @param y row of the board
+     * @param x column of the board
      * @return state of the square as int (perhaps enum)
      */
     public Square squareAt(int y, int x) {
@@ -152,6 +141,7 @@ public class Board {
         board[startx][starty] = Square.empty;
         
     }
+    
     /**
      * Print a visualization of the board
      */
@@ -164,27 +154,26 @@ public class Board {
        }
         System.out.println("---------------------------------------------------------");
     }
+    
     /**
      * Edits a piece at a given square to be a king
-     * @auth Ashley
-     * 
-     * @param square location to find and king a piece
      */
-    public void kingPiece(int y, int x) {
-        // if x==0 black is a king
-        //if x==7 red is a king
-        /*if (//space you want to move to x !=0)
-        board[//space you want to move to] = 1
-        else
-        board[//space you want to move to] = 1 * 3 //king multiplyer*/
-        
-        Square square;
-        square = squareAt(y, x);
-        if (square.isValid() && square.isOccupied()) {
-            if (square.isRed())
-                board[y][x] = Square.redKing;
-            else if (square.isRed() == false)
-                board[y][x] = Square.blackKing;
+    public void kingPieces() {
+        for (int i = 0; i < 8; ++i) {
+            if (squareAt(0, i).isValid()) {
+                if (squareAt(0, i).isOccupied()) {
+                    if (squareAt(0, i).isRed()) {
+                        board[0][i] = Square.redKing; 
+                    }
+                }
+            }
+            if (squareAt(7, i).isValid()) {
+                if (squareAt(7, i).isOccupied()) {
+                    if (!squareAt(7, i).isRed()) {
+                        board[7][i] = Square.blackKing; 
+                    }
+                }
+            }
         }
     }
     
@@ -209,6 +198,69 @@ public class Board {
         board[starty][startx] = Square.empty;
     }
     
+    public boolean canJump(int starty, int startx, boolean isKing) {
+        boolean jump;
+        jump = false;
+        if (PlayerIsRed || isKing) {
+            try {
+                if (squareAt(starty - 1, startx - 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is a piece to the top-left");
+                    if (squareAt(starty - 1, startx - 1).isRed ^ PlayerIsRed) {
+                        if(!squareAt(starty - 2, startx - 2).isOccupied()) jump = true; //to left
+                    }
+                } 
+            } catch (Exception e) {
+                if (DEBUG) System.out.println("ERROR: TOP_LEFT: " + e);
+            }
+            try {
+                if (squareAt(starty - 1, startx + 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is a piece to the top-right");
+                    if (squareAt(starty - 1, startx + 1).isRed ^ PlayerIsRed) {
+                        if(!squareAt(starty - 2, startx + 2).isOccupied()) jump = true; //to right   
+                    }
+                }   
+            } catch (Exception e) {
+                if (DEBUG) System.out.println("ERROR: TOP_RIGHT: " + e);
+            }
+        }
+        if (!PlayerIsRed || isKing) {
+            try {
+                if (squareAt(starty + 1, startx - 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is a piece to the bottom-left");
+                    if (squareAt(starty + 1, startx - 1).isRed ^ PlayerIsRed) {
+                       if(!squareAt(starty + 2, startx - 2).isOccupied()) jump = true; //to left
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR: BOTTOM_LEFT: " + e);
+            }
+            try {
+                if (squareAt(starty + 1, startx + 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is a piece to the bottom-right");
+                    if (squareAt(starty + 1, startx + 1).isRed ^ PlayerIsRed) {
+                       if(!squareAt(starty + 2, startx + 2).isOccupied()) jump = true; //to right
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR: BOTTOM_RIGHT: " + e);
+            }
+        }
+        return jump;
+    }
+    public boolean anyJump() {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                try {
+                    if (!squareAt(i, j).isRed() ^ PlayerIsRed) {
+                        if (canJump(i, j, squareAt(i, j).isKing())) return true;
+                    }
+                } catch (Exception e) {
+                    continue;
+                }
+            }
+        }
+        return false;
+    }
     private void debug() {
         printDebugBoard();
     }

@@ -1,35 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
+import static checkers.pkg1510.VisualBoard.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.layout.*;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
-/**
- * 
- * @author Caleb Davenport
- */
 public class VisualStatus extends GridPane {
-    private int BORDER_WIDTH = 4;
-    private int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
+    private final int BORDER_WIDTH = 4;
+    private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
     Label currentPlayer = new Label("RED");
+    Label winner = new Label("Wins!");
+    Button newGame = new Button("New Game");
     VisualStatus() {
         configureStatusPanel();
         setBackground();
         currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
         currentPlayer.setTextFill(Color.web("F00"));
+        winner.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
+        winner.setTextFill(Color.web("F00", 0));
+        newGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            PlayerIsRed = true;
+            winner.setTextFill(Color.web("F00", 0));
+            gameBoard.setupBoard(BOARD_LOCATION);
+            visualBoard.redrawPieces();
+            updatePlayer();
+            unHighlightAll();
+            }
+        });
         super.add(currentPlayer, 1, 0);
-        super.add(new Rectangle(25, 25, Color.web("00F")), 1, 1);
+        super.add(winner, 1, 1);
+        super.add(newGame, 1, 2);
+        
         if (DEBUG) debug();
+    }
+    public void winner(){
+        if (Checkers1510.PlayerIsRed)     
+            winner.setTextFill(Color.web("F00"));
+        else
+            winner.setTextFill(Color.web("000"));
     }
     public final void updatePlayer() {
         if (Checkers1510.PlayerIsRed) {

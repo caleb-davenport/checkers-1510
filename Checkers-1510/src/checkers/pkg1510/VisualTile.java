@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package checkers.pkg1510;
 import static checkers.pkg1510.Checkers1510.*;
@@ -12,10 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.*;
 
-/**
- * 
- * @author Caleb Davenport
- */
 public class VisualTile extends Group {
     int col, row;
     boolean isValid;
@@ -27,8 +18,8 @@ public class VisualTile extends Group {
     VisualTile(int col, int row) {
         this.col = col;
         this.row = row;
-        this.isValid = gameBoard.squareAt(col, row).isValid();
-        if (isValid) this.isOccupied = gameBoard.squareAt(col, row).isOccupied();
+        this.isValid = gameBoard.squareAt(row, col).isValid();
+        if (isValid) this.isOccupied = gameBoard.squareAt(row, col).isOccupied();
         
         highlight.setMouseTransparent(true);
         main.setWidth(50);
@@ -65,8 +56,8 @@ public class VisualTile extends Group {
     }
     @Override
     public void handle(MouseEvent e) {
-        if (DEBUG) debug();
         highlight(row, col);
+        if (DEBUG) debug();
     }
     private void highlight(int row, int col) {
         if (active) VisualBoard.unHighlightAll();
@@ -74,6 +65,7 @@ public class VisualTile extends Group {
     }
     private void debug() {
         System.out.println("You clicked a tile at (" + col + ", " + row + ")");
+        System.out.println("JUMP AVAILABLE?: " + gameBoard.anyJump());
     }
 }
 }

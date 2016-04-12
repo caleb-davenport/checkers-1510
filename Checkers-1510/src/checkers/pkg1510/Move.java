@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package checkers.pkg1510;
 
-/**
- *
- * @author rmartin-
- */
 public class Move {
     
     private final int startY, startX;
@@ -17,7 +9,8 @@ public class Move {
     
     public enum MoveType {
         step,
-        jump
+        jump,
+        illegal
     }
     private MoveType movetype;
     
@@ -41,10 +34,10 @@ public class Move {
             moveError = true;
         } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
             movetype = MoveType.jump;
-        } else if (startY - endY == 1 && startX - endX == 1) {
+        } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) == 1) {
             movetype = MoveType.step;
         } else {
-            movetype = null;
+            movetype = MoveType.illegal;
             moveError = true;
         }
     }

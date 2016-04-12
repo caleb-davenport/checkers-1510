@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package checkers.pkg1510;
 
@@ -11,10 +6,6 @@ import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.*;
 
-/**
- * 
- * @author Caleb Davenport
- */
 public class VisualBoard extends GridPane {
     static VisualTile[][] tiles = new VisualTile[8][8];
     static int[] activeCoord = new int[2];
@@ -22,9 +13,10 @@ public class VisualBoard extends GridPane {
     VisualBoard() {
         colorBoard();
         configureBoardLayout();
+        redrawPieces();
         if (DEBUG) debug();
     }
-    public void redrawPieces() { // !!!Run this at the end of every turn!!!
+    public final void redrawPieces() { // !!!Run this at the end of every turn!!!
         Board.Square square;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -90,10 +82,8 @@ public class VisualBoard extends GridPane {
             activeCoord[0] = row;
             activeCoord[1] = col;
         } else if (anyHighlight() && square.isValid() && !square.isOccupied()) {
-            Checkers1510.performMove(activeCoord[0], activeCoord[1], row, col);
-            unHighlightAll();
+            Checkers1510.performMove(new Move(activeCoord[0], activeCoord[1], row, col));
         }
-        Checkers1510.visualBoard.redrawPieces();
     }
     public static void unHighlightAll() {
         for (int row = 0; row < 8; row++) {

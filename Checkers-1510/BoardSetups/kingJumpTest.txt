@@ -1,0 +1,8 @@
+X	b	X	b	X	b	X	b	
+b	X	r	X	b	X	b	X	
+X	_	X	_	X	_	X	_	
+b	X	r	X	r	X	b	X	
+X	_	X	B	X	_	X	b	
+r	X	r	X	r	X	b	X	
+X	_	X	_	X	_	X	r	
+r	X	r	X	r	X	r	X	
