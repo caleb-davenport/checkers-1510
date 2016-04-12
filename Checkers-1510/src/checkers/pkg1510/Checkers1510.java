@@ -64,7 +64,7 @@ public class Checkers1510 extends Application {
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
         status.winner(); // move int if statment after debug
-        if(isWon())
+        if (false)
             System.out.println("You Win!");
     }
 }
