@@ -13,6 +13,7 @@ public class Move {
     
     private final int startY, startX;
     private final int endY, endX;
+    private final boolean isKing;
     
     public enum MoveType {
         step,
@@ -22,11 +23,12 @@ public class Move {
     
     private boolean moveError;
     
-    Move(int stY, int stX, int enY, int enX) {
+    Move(int stY, int stX, int enY, int enX, enum Square sq) {
         startY = stY;
         startX = stX;
         endY = enY;
         endX = enX;
+        isKing = sq.;
         
         moveError = false;
         
@@ -34,7 +36,10 @@ public class Move {
     }
     
     private void discernType() {
-        if (startY - endY == 2 && startX - endX == 2) {
+        if (endY - startY < 0 && !isKing) {
+            movetype = MoveType.illegal;
+            moveError = true;
+        } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
             movetype = MoveType.jump;
         } else if (startY - endY == 1 && startX - endX == 1) {
             movetype = MoveType.step;

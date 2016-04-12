@@ -52,21 +52,4 @@ public class Checkers1510 extends Application {
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
     }
-    
-    public Move[] getAvailMoves(int y, int x) {
-        int[][] spcSeed;
-        Move[] possibleMoves;
-        
-        if (gameBoard.squareAt(y, x).isKing()) {
-            spcSeed = new int[][]{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
-        } else {
-            spcSeed = new int[][]{{1, 1}, {1, -1}};
-        } 
-        for (int i = 0; i < spcSeed.length; ++i) {
-            if (!gameBoard.squareAt(y + spcSeed[i, 0], x + spcSeed[i, 1]).isOccupied()) {
-            possibleMoves;
-        }
-        }
-    }
-    
 }
