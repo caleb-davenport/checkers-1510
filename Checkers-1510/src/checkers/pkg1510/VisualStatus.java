@@ -101,9 +101,9 @@ public class VisualStatus extends GridPane {
     }
     public void winner() {
         if (Checkers1510.PlayerIsRed)     
-            winner.setTextFill(Color.web("F00"));
-        else
             winner.setTextFill(Color.web("000"));
+        else
+            winner.setTextFill(Color.web("F00"));
     }
         
 }
