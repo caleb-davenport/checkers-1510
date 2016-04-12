@@ -141,7 +141,12 @@ public class Board {
         board[startx][starty] = Square.empty;
         
     }
-    
+    public Square getJumpPiece(Move move) {
+        int takeny = (move.getEndY() + move.getStartY()) / 2; // Midpoint formula: LOL
+        int takenx = (move.getEndX() + move.getStartX()) / 2;
+        
+        return squareAt(takeny, takenx);
+    }
     /**
      * Print a visualization of the board
      */
