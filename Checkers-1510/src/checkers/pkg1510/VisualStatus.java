@@ -17,6 +17,7 @@ public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
     Label currentPlayer = new Label("RED");
+    Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
     VisualStatus() {
@@ -24,9 +25,12 @@ public class VisualStatus extends GridPane {
         setBackground();
         currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
         currentPlayer.setTextFill(Color.web("F00"));
+        winner.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
+        winner.setTextFill(Color.web("F00", 0));
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            PlayerIsRed = true; 
+            PlayerIsRed = true;
+            winner.setTextFill(Color.web("F00", 0));
             gameBoard.setupBoard(BOARD_LOCATION);
             visualBoard.redrawPieces();
             updatePlayer();
@@ -34,15 +38,11 @@ public class VisualStatus extends GridPane {
             }
         });
         super.add(currentPlayer, 1, 0);
-        super.add(newGame, 1, 1);
+        super.add(winner, 1, 1);
+        super.add(newGame, 1, 2);
         super.add(notice, 1, 3);
+        
         if (DEBUG) debug();
-    }
-    public final void jumpAvailable() {
-        notice.setText("You have a jump available!");
-    }
-    public final void clearNotice() {
-        notice.setText("");
     }
     public final void updatePlayer() {
         if (Checkers1510.PlayerIsRed) {
@@ -92,4 +92,18 @@ public class VisualStatus extends GridPane {
     private void debug() {
         this.setGridLinesVisible(true);
     }
+
+    public final void jumpAvailable() {
+        notice.setText("You have a jump available!");
+    }
+    public final void clearNotice() {
+        notice.setText("");
+    }
+    public void winner() {
+        if (Checkers1510.PlayerIsRed)     
+            winner.setTextFill(Color.web("F00"));
+        else
+            winner.setTextFill(Color.web("000"));
+    }
+        
 }

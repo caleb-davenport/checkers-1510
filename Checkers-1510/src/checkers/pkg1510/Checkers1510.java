@@ -61,8 +61,10 @@ public class Checkers1510 extends Application {
         if (DEBUG) System.out.println(move.getStartY() + ", " + move.getStartX() + ", " + move.getEndY() + ", " + move.getEndX()); 
     }
     public static void endTurn() {
-        if(isWon())
+        if(isWon()) {
             System.out.println("You Win!");
+            status.winner();
+        }
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
         gameBoard.kingPieces();
