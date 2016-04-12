@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
-    public static final String BOARD_LOCATION = "BoardSetups\\endGame.txt";
+    public static final String BOARD_LOCATION = "BoardSetups\\StandardGame.txt";
     public static boolean DEBUG = true; //ENABLE/DISABLE DEBUG MODE
     static Board gameBoard = new Board(BOARD_LOCATION);
     static VisualBoard visualBoard = new VisualBoard();
