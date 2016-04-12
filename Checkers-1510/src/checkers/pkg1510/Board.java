@@ -252,6 +252,61 @@ public class Board {
         }
         return jump;
     }
+    public boolean canStep(int starty, int startx, boolean isKing) {
+        boolean step;
+        step = false;
+        if (PlayerIsRed || isKing) {
+            try {
+                if (!squareAt(starty - 1, startx - 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is no piece to the top-left");
+                    step = true; //to left
+                } 
+            } catch (Exception e) {
+                if (DEBUG) System.out.println("ERROR: TOP_LEFT: " + e);
+            }
+            try {
+                if (!squareAt(starty - 1, startx + 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is no piece to the top-right");
+                    step = true; //to right   
+                }   
+            } catch (Exception e) {
+                if (DEBUG) System.out.println("ERROR: TOP_RIGHT: " + e);
+            }
+        }
+        if (!PlayerIsRed || isKing) {
+            try {
+                if (!squareAt(starty + 1, startx - 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is no piece to the bottom-left");
+                    step = true; //to left
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR: BOTTOM_LEFT: " + e);
+            }
+            try {
+                if (!squareAt(starty + 1, startx + 1).isOccupied()) {
+                    if (DEBUG) System.out.println("There is no piece to the bottom-right");
+                    step = true; //to right
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR: BOTTOM_RIGHT: " + e);
+            }
+        }
+        return step;
+    }
+    public boolean anyStep() {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                try {
+                    if (!squareAt(i, j).isRed() ^ PlayerIsRed) {
+                        if (canStep(i, j, squareAt(i, j).isKing())) return true;
+                    }
+                } catch (Exception e) {
+                    continue;
+                }
+            }
+        }
+        return false;
+    }
     public boolean anyJump() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {

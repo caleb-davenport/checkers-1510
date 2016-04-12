@@ -61,55 +61,16 @@ public class Checkers1510 extends Application {
         if (DEBUG) System.out.println(move.getStartY() + ", " + move.getStartX() + ", " + move.getEndY() + ", " + move.getEndX()); 
     }
     public static void endTurn() {
+        if(isWon())
+            System.out.println("You Win!");
         PlayerIsRed = !PlayerIsRed;
         status.updatePlayer();
         gameBoard.kingPieces();
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
         status.clearNotice();
-        if(isWon())
-            System.out.println("You Win!");
     }
-    
-    /*public Move[] getAvailMoves(int y, int x) {
-        int[][] spcSeed;
-        Move[] possibleMoves;
-        
-        if (gameBoard.squareAt(y, x).isKing()) {
-            spcSeed = new int[][]{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
-        } else {
-            spcSeed = new int[][]{{1, 1}, {1, -1}};
-        } 
-        for (int i = 0; i < spcSeed.length; ++i) {
-            if (!gameBoard.squareAt(y + spcSeed[i, 0], x + spcSeed[i, 1]).isOccupied()) {
-            possibleMoves;
-        }
-        }
-    }*/
-    public static boolean isWon(){
-        boolean win;
-        win = true;
-        
-        if(PlayerIsRed){
-          for (int row = 0; row < 8; row++) {
-             for (int col = 0; col < 8; col++) {
-                 if(gameBoard.squareAt(row, col).isRed() || !gameBoard.squareAt(row, col).isValid()) //change to if you have no moves
-                     continue;
-                 else;
-                 win = false;
-             }   
-           } 
-        }
-        if(!PlayerIsRed){
-          for (int row = 0; row < 8; row++) {
-             for (int col = 0; col < 8; col++) {
-                 if(!gameBoard.squareAt(row, col).isRed() || !gameBoard.squareAt(row, col).isValid())
-                     continue;
-                 else;
-                 win = false;
-             }   
-           } 
-        }
-        return win;
+    public static boolean isWon() {
+      return !(gameBoard.anyStep() || gameBoard.anyJump());  
     }
 }
