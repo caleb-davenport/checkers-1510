@@ -96,6 +96,9 @@ public class VisualStatus extends GridPane {
     public final void jumpAvailable() {
         notice.setText("You have a jump available!");
     }
+    public final void illegalMove() {
+        notice.setText("That's an illegal move!");
+    }
     public final void clearNotice() {
         notice.setText("");
     }

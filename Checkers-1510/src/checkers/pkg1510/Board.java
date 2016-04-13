@@ -2,9 +2,6 @@
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,6 +50,7 @@ public class Board {
         public Boolean isKing()     { return isKing; }
         public Boolean isOccupied() { return isOccupied; }
         public Boolean isValid()    { return isValid; }
+        @Override
         public String toString()    { return String.valueOf(code); }
     }
     
@@ -76,11 +74,11 @@ public class Board {
      * Loads board into program variables from text file
      * @param pathStr path to setup file. Pass "" for default game
      */
-    public int setupBoard (String pathStr) {
+    public final int setupBoard (String pathStr) {
         Path path;
         int returnVal;
         
-        if (pathStr.isEmpty() || pathStr == null) {
+        if (pathStr == null || pathStr.isEmpty()) {
             //Initialize board as empty, but with invalid and valid squares
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -142,8 +140,8 @@ public class Board {
         
     }
     public Square getJumpPiece(Move move) {
-        int takeny = (move.getEndY() + move.getStartY()) / 2; // Midpoint formula: LOL
-        int takenx = (move.getEndX() + move.getStartX()) / 2;
+        int takeny = (move.EndY() + move.StartY()) / 2; // Midpoint formula: LOL
+        int takenx = (move.EndX() + move.StartX()) / 2;
         
         return squareAt(takeny, takenx);
     }
@@ -168,23 +166,20 @@ public class Board {
             if (squareAt(0, i).isValid()) {
                 if (squareAt(0, i).isOccupied()) {
                     if (squareAt(0, i).isBlack()) {
-                        board[0][i] = Square.redKing; 
+                        board[0][i] = Square.blackKing; 
                     }
                 }
             }
             if (squareAt(7, i).isValid()) {
                 if (squareAt(7, i).isOccupied()) {
                     if (!squareAt(7, i).isBlack()) {
-                        board[7][i] = Square.blackKing; 
+                        board[7][i] = Square.redKing; 
                     }
                 }
             }
         }
     }
     
-    /**
-     * 
-     */
     public void takePiece(int starty, int startx, int endy, int endx) {
         Square initSquare;
         
@@ -237,7 +232,7 @@ public class Board {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("ERROR: BOTTOM_LEFT: " + e);
+                if (DEBUG) System.out.println("ERROR: BOTTOM_LEFT: " + e);
             }
             try {
                 if (squareAt(starty + 1, startx + 1).isOccupied()) {
@@ -247,7 +242,7 @@ public class Board {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("ERROR: BOTTOM_RIGHT: " + e);
+                if (DEBUG) System.out.println("ERROR: BOTTOM_RIGHT: " + e);
             }
         }
         return jump;
@@ -280,7 +275,7 @@ public class Board {
                     step = true; //to left
                 }
             } catch (Exception e) {
-                System.out.println("ERROR: BOTTOM_LEFT: " + e);
+                if (DEBUG) System.out.println("ERROR: BOTTOM_LEFT: " + e);
             }
             try {
                 if (!squareAt(starty + 1, startx + 1).isOccupied()) {
@@ -288,7 +283,7 @@ public class Board {
                     step = true; //to right
                 }
             } catch (Exception e) {
-                System.out.println("ERROR: BOTTOM_RIGHT: " + e);
+                if (DEBUG) System.out.println("ERROR: BOTTOM_RIGHT: " + e);
             }
         }
         return step;
@@ -297,11 +292,10 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 try {
-                    if (!squareAt(i, j).isBlack() ^ PlayerIsBlack) {
-                        if (canStep(i, j, squareAt(i, j).isKing())) return true;
-                    }
+                    if ((!squareAt(i, j).isBlack() ^ PlayerIsBlack)
+                            && canStep(i, j, squareAt(i, j).isKing()))
+                        return true;
                 } catch (Exception e) {
-                    continue;
                 }
             }
         }
@@ -311,11 +305,10 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 try {
-                    if (!squareAt(i, j).isBlack() ^ PlayerIsBlack) {
-                        if (canJump(i, j, squareAt(i, j).isKing())) return true;
-                    }
+                    if ((!squareAt(i, j).isBlack() ^ PlayerIsBlack)
+                            && canJump(i, j, squareAt(i, j).isKing()))
+                        return true;
                 } catch (Exception e) {
-                    continue;
                 }
             }
         }

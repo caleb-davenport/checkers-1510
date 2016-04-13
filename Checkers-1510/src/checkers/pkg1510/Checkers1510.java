@@ -41,29 +41,29 @@ public class Checkers1510 extends Application {
     }
     
     public static void performMove(Move move) {
-        if (gameBoard.anyJump() && move.getMoveType() == Move.MoveType.jump) {
+        if (gameBoard.anyJump() && move.MoveType() == Move.MoveType.jump) {
             if (gameBoard.getJumpPiece(move).isBlack() ^ PlayerIsBlack) {
-                gameBoard.takePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
+                gameBoard.takePiece(move.StartY(), move.StartX(), move.EndY(), move.EndX());
             }
-            if (gameBoard.canJump(move.getEndY(), move.getEndX(), gameBoard.squareAt(move.getEndY(), move.getEndX()).isKing())) {
+            if (gameBoard.canJump(move.EndY(), move.EndX(), gameBoard.squareAt(move.EndY(), move.EndX()).isKing())) {
                 VisualBoard.unHighlightAll();
-                VisualBoard.highlight(move.getEndY(), move.getEndX());
+                VisualBoard.highlight(move.EndY(), move.EndX());
                 visualBoard.redrawPieces();
                 return;
             }
             endTurn();
-        } else if (!gameBoard.anyJump() && move.getMoveType() == Move.MoveType.step) {
-            gameBoard.movePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
+        } else if (!gameBoard.anyJump() && move.MoveType() == Move.MoveType.step) {
+            gameBoard.movePiece(move.StartY(), move.StartX(), move.EndY(), move.EndX());
             endTurn();
         } else {
-            status.jumpAvailable();
+            if (gameBoard.anyJump()) status.jumpAvailable();
+            else status.illegalMove();
         }
-        if (DEBUG) System.out.println(move.getStartY() + ", " + move.getStartX() + ", " + move.getEndY() + ", " + move.getEndX()); 
+        if (DEBUG) System.out.println(move.StartY() + ", " + move.StartX() + ", " + move.EndY() + ", " + move.EndX()); 
     }
     public static void endTurn() {
         PlayerIsBlack = !PlayerIsBlack;
         if (isWon()) {
-            System.out.println("You Win!");
             status.winner();
             PlayerIsBlack = !PlayerIsBlack;
         }
