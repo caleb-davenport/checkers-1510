@@ -19,7 +19,8 @@ public class VisualTile extends Group {
         this.col = col;
         this.row = row;
         this.isValid = gameBoard.squareAt(row, col).isValid();
-        if (isValid) this.isOccupied = gameBoard.squareAt(row, col).isOccupied();
+        if (isValid) this.isOccupied = 
+                gameBoard.squareAt(row, col).isOccupied();
         
         highlight.setMouseTransparent(true);
         main.setWidth(50);
@@ -64,8 +65,9 @@ public class VisualTile extends Group {
         else VisualBoard.highlight(row, col);
     }
     private void debug() {
-        System.out.println("You clicked a tile at (" + col + ", " + row + ")");
+        System.out.println("You clicked a tile at (" + col + ", " 
+                + row + ")");
         System.out.println("JUMP AVAILABLE?: " + gameBoard.anyJump());
+        }
     }
-}
 }

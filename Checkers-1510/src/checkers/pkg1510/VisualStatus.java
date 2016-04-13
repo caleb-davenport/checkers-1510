@@ -1,4 +1,3 @@
-
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
@@ -29,6 +28,8 @@ public class VisualStatus extends GridPane {
         currentPlayer.setTextFill(Color.web("000"));
         winner.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
         winner.setTextFill(Color.web("000", 0));
+        notice.setFont(Font.font("Calibri", FontWeight.BOLD, 18));
+        notice.setTextAlignment(TextAlignment.CENTER);
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
             PlayerIsBlack = true;
@@ -122,7 +123,7 @@ public class VisualStatus extends GridPane {
     }
 
     public final void jumpAvailable() {
-        notice.setText("You have a jump available!");
+        notice.setText("You have a\njump available!");
     }
     public final void illegalMove() {
         notice.setText("That's an illegal move!");

@@ -1,4 +1,3 @@
-
 package checkers.pkg1510;
 
 public class Move {
@@ -29,15 +28,19 @@ public class Move {
     }
     
     private void discernType() {
-        if (startSquare.isBlack() && (endY - startY) > 0 && !startSquare.isKing()) {
+        if (startSquare.isBlack() && (endY - startY) > 0 && 
+                !startSquare.isKing()) {
             movetype = MoveType.illegal;
             moveError = true;
-        } else if (!startSquare.isBlack() && (endY - startY) < 0 && !startSquare.isKing()) {
+        } else if (!startSquare.isBlack() && (endY - startY) < 0 && 
+                !startSquare.isKing()) {
             movetype = MoveType.illegal;
             moveError = true;
-        } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
+        } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) 
+                == 2) {
             movetype = MoveType.jump;
-        } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) == 1) {
+        } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) 
+                == 1) {
             movetype = MoveType.step;
         } else {
             movetype = MoveType.illegal;
