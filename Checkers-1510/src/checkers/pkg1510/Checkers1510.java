@@ -7,8 +7,10 @@
  */
 package checkers.pkg1510;
 
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.*;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -21,6 +23,7 @@ public class Checkers1510 extends Application {
     static VisualStatus status = new VisualStatus();
     static boolean PlayerIsRed = true;
     
+    
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
@@ -30,6 +33,30 @@ public class Checkers1510 extends Application {
         primaryStage.setTitle("Checkers");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
+        
+        TextInputDialog dialogPl1 = new TextInputDialog();
+        dialogPl1.setTitle("Player 1 name");
+        dialogPl1.setHeaderText("Please enter a name for player 1");
+        dialogPl1.setContentText("Player 1:");
+
+        // Traditional way to get the response value.
+        Optional<String> resultPl1 = dialogPl1.showAndWait();
+        if (resultPl1.isPresent()){
+            status.setPl1Name(resultPl1.get());
+        }
+
+        TextInputDialog dialogPl2 = new TextInputDialog();
+        dialogPl2.setTitle("Player 2 name");
+        dialogPl2.setHeaderText("Please enter a name for player 2");
+        dialogPl2.setContentText("Player 2:");
+        
+        
+
+        // Traditional way to get the response value.
+        Optional<String> resultPl2 = dialogPl2.showAndWait();
+        if (resultPl2.isPresent()){
+            status.setPl2Name(resultPl2.get());
+        }
     }
 
     /**

@@ -20,6 +20,12 @@ public class VisualStatus extends GridPane {
     Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
+    
+    static Text Player1Name = new Text("Player1");
+    static Text Player2Name = new Text("Player2");
+    
+    static Bounds statusBound;
+    
     VisualStatus() {
         configureStatusPanel();
         setBackground();
@@ -46,11 +52,11 @@ public class VisualStatus extends GridPane {
     }
     public final void updatePlayer() {
         if (Checkers1510.PlayerIsRed) {
-            currentPlayer.setText("RED");
+            currentPlayer.setText(Player1Name.getText());
             currentPlayer.setTextFill(Color.web("F00"));
         }
         else {
-            currentPlayer.setText("BLACK");
+            currentPlayer.setText(Player2Name.getText());
             currentPlayer.setTextFill(Color.web("000"));
         }
     }
@@ -59,6 +65,7 @@ public class VisualStatus extends GridPane {
         Color border = Color.web("555");
         for (int i = 0; i < 4; ++i) {
             Rectangle rect = new Rectangle(STATUS_WIDTH, 100);
+            statusBound = rect.getBoundsInLocal();
             Rectangle side = new Rectangle(BORDER_WIDTH, 100);
             rect.setFill(bg);
             rect.setMouseTransparent(true);
@@ -104,6 +111,19 @@ public class VisualStatus extends GridPane {
             winner.setTextFill(Color.web("000"));
         else
             winner.setTextFill(Color.web("F00"));
+    }
+    
+    public void setPl1Name (String pl1Name) {
+        Player1Name.setText(pl1Name);
+        Bounds textBound = Player1Name.getBoundsInLocal();
+        double scalex = statusBound.getWidth()/textBound.getWidth();
+        Player1Name.setScaleX(scalex);
+    }
+    public void setPl2Name (String pl2Name) {
+        Player2Name.setText(pl2Name);
+        Bounds textBound = Player2Name.getBoundsInLocal();
+        double scalex = statusBound.getWidth()/textBound.getWidth();
+        Player2Name.setScaleX(scalex);
     }
         
 }
