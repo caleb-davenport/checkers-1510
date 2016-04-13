@@ -2,6 +2,7 @@
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -109,6 +110,25 @@ public class Board {
             }
         }
         return returnVal;
+    }
+    public void saveBoard() {
+        String saveLocation = "BoardSetups\\";
+        if (PlayerIsBlack) saveLocation = saveLocation.concat("b");
+        else saveLocation = saveLocation.concat("r");
+        saveLocation = saveLocation.concat(String.valueOf(System.currentTimeMillis()));
+        saveLocation = saveLocation.concat(".txt");
+        try (PrintStream P = new PrintStream(saveLocation)) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    P.print(squareAt(i, j).toString() + "\t");
+                }
+                P.println("");
+            }
+            P.close();
+            System.out.println("Game Saved.");
+        } catch (Exception e) {
+            System.err.println("ERROR: Couldn't save game");
+        }
     }
     
     /**
