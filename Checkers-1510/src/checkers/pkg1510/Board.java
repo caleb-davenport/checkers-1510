@@ -26,22 +26,22 @@ public class Board {
     public enum Square {
         invalid  (-2, null,  null,  null,  false, "X"),
         empty    (-1, null,  null,  false, true,  "_"),
-        blackSerf(0,  false, false, true,  true,  "b"),
-        redSerf  (1,  true,  false, true,  true,  "r"),
-        blackKing(2,  false, true,  true,  true,  "B"),
-        redKing  (3,  true,  true,  true,  true,  "R");
+        blackSerf(0,  true, false, true,  true,  "b"),
+        redSerf  (1,  false,  false, true,  true,  "r"),
+        blackKing(2,  true, true,  true,  true,  "B"),
+        redKing  (3,  false,  true,  true,  true,  "R");
 
         private final double rawNumber;   // number representing state
-        private final Boolean isRed; // f=black t=red Null=empty
+        private final Boolean isBlack; // f=black t=red Null=empty
         private final Boolean isKing; // f=not_king t=king Null=empty
         private final Boolean isOccupied; // f=empty t=occupied Null=invalid
         private final Boolean isValid; // f=invalid, t=valid
         private final String code;
 
-        Square(double rawNumber, Boolean isRed, Boolean isKing, Boolean isOccupied,
+        Square(double rawNumber, Boolean isBlack, Boolean isKing, Boolean isOccupied,
                 Boolean isValid, String code) {
             this.rawNumber  = rawNumber;
-            this.isRed      = isRed;
+            this.isBlack      = isBlack;
             this.isKing     = isKing;
             this.isOccupied = isOccupied;
             this.isValid    = isValid;
@@ -49,7 +49,7 @@ public class Board {
         }
 
         public double rawNumber()   { return rawNumber; }
-        public Boolean isRed()      { return isRed; }
+        public Boolean isBlack()      { return isBlack; }
         public Boolean isKing()     { return isKing; }
         public Boolean isOccupied() { return isOccupied; }
         public Boolean isValid()    { return isValid; }
@@ -167,14 +167,14 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             if (squareAt(0, i).isValid()) {
                 if (squareAt(0, i).isOccupied()) {
-                    if (squareAt(0, i).isRed()) {
+                    if (squareAt(0, i).isBlack()) {
                         board[0][i] = Square.redKing; 
                     }
                 }
             }
             if (squareAt(7, i).isValid()) {
                 if (squareAt(7, i).isOccupied()) {
-                    if (!squareAt(7, i).isRed()) {
+                    if (!squareAt(7, i).isBlack()) {
                         board[7][i] = Square.blackKing; 
                     }
                 }
@@ -206,11 +206,11 @@ public class Board {
     public boolean canJump(int starty, int startx, boolean isKing) {
         boolean jump;
         jump = false;
-        if (PlayerIsRed || isKing) {
+        if (PlayerIsBlack || isKing) {
             try {
                 if (squareAt(starty - 1, startx - 1).isOccupied()) {
                     if (DEBUG) System.out.println("There is a piece to the top-left");
-                    if (squareAt(starty - 1, startx - 1).isRed ^ PlayerIsRed) {
+                    if (squareAt(starty - 1, startx - 1).isBlack ^ PlayerIsBlack) {
                         if(!squareAt(starty - 2, startx - 2).isOccupied()) jump = true; //to left
                     }
                 } 
@@ -220,7 +220,7 @@ public class Board {
             try {
                 if (squareAt(starty - 1, startx + 1).isOccupied()) {
                     if (DEBUG) System.out.println("There is a piece to the top-right");
-                    if (squareAt(starty - 1, startx + 1).isRed ^ PlayerIsRed) {
+                    if (squareAt(starty - 1, startx + 1).isBlack ^ PlayerIsBlack) {
                         if(!squareAt(starty - 2, startx + 2).isOccupied()) jump = true; //to right   
                     }
                 }   
@@ -228,11 +228,11 @@ public class Board {
                 if (DEBUG) System.out.println("ERROR: TOP_RIGHT: " + e);
             }
         }
-        if (!PlayerIsRed || isKing) {
+        if (!PlayerIsBlack || isKing) {
             try {
                 if (squareAt(starty + 1, startx - 1).isOccupied()) {
                     if (DEBUG) System.out.println("There is a piece to the bottom-left");
-                    if (squareAt(starty + 1, startx - 1).isRed ^ PlayerIsRed) {
+                    if (squareAt(starty + 1, startx - 1).isBlack ^ PlayerIsBlack) {
                        if(!squareAt(starty + 2, startx - 2).isOccupied()) jump = true; //to left
                     }
                 }
@@ -242,7 +242,7 @@ public class Board {
             try {
                 if (squareAt(starty + 1, startx + 1).isOccupied()) {
                     if (DEBUG) System.out.println("There is a piece to the bottom-right");
-                    if (squareAt(starty + 1, startx + 1).isRed ^ PlayerIsRed) {
+                    if (squareAt(starty + 1, startx + 1).isBlack ^ PlayerIsBlack) {
                        if(!squareAt(starty + 2, startx + 2).isOccupied()) jump = true; //to right
                     }
                 }
@@ -255,7 +255,7 @@ public class Board {
     public boolean canStep(int starty, int startx, boolean isKing) {
         boolean step;
         step = false;
-        if (PlayerIsRed || isKing) {
+        if (PlayerIsBlack || isKing) {
             try {
                 if (!squareAt(starty - 1, startx - 1).isOccupied()) {
                     if (DEBUG) System.out.println("There is no piece to the top-left");
@@ -273,7 +273,7 @@ public class Board {
                 if (DEBUG) System.out.println("ERROR: TOP_RIGHT: " + e);
             }
         }
-        if (!PlayerIsRed || isKing) {
+        if (!PlayerIsBlack || isKing) {
             try {
                 if (!squareAt(starty + 1, startx - 1).isOccupied()) {
                     if (DEBUG) System.out.println("There is no piece to the bottom-left");
@@ -297,7 +297,7 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 try {
-                    if (!squareAt(i, j).isRed() ^ PlayerIsRed) {
+                    if (!squareAt(i, j).isBlack() ^ PlayerIsBlack) {
                         if (canStep(i, j, squareAt(i, j).isKing())) return true;
                     }
                 } catch (Exception e) {
@@ -311,7 +311,7 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 try {
-                    if (!squareAt(i, j).isRed() ^ PlayerIsRed) {
+                    if (!squareAt(i, j).isBlack() ^ PlayerIsBlack) {
                         if (canJump(i, j, squareAt(i, j).isKing())) return true;
                     }
                 } catch (Exception e) {

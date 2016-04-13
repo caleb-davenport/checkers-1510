@@ -16,7 +16,7 @@ import javafx.scene.text.*;
 public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
-    Label currentPlayer = new Label("RED");
+    Label currentPlayer = new Label("BLACK");
     Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
@@ -24,13 +24,13 @@ public class VisualStatus extends GridPane {
         configureStatusPanel();
         setBackground();
         currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
-        currentPlayer.setTextFill(Color.web("F00"));
+        currentPlayer.setTextFill(Color.web("000"));
         winner.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
-        winner.setTextFill(Color.web("F00", 0));
+        winner.setTextFill(Color.web("000", 0));
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            PlayerIsRed = true;
-            winner.setTextFill(Color.web("F00", 0));
+            PlayerIsBlack = true;
+            winner.setTextFill(Color.web("000", 0));
             gameBoard.setupBoard(BOARD_LOCATION);
             visualBoard.redrawPieces();
             updatePlayer();
@@ -45,13 +45,13 @@ public class VisualStatus extends GridPane {
         if (DEBUG) debug();
     }
     public final void updatePlayer() {
-        if (Checkers1510.PlayerIsRed) {
-            currentPlayer.setText("RED");
-            currentPlayer.setTextFill(Color.web("F00"));
-        }
-        else {
+        if (Checkers1510.PlayerIsBlack) {
             currentPlayer.setText("BLACK");
             currentPlayer.setTextFill(Color.web("000"));
+        }
+        else {
+            currentPlayer.setText("RED");
+            currentPlayer.setTextFill(Color.web("F00"));
         }
     }
     private void setBackground() {
@@ -100,10 +100,10 @@ public class VisualStatus extends GridPane {
         notice.setText("");
     }
     public void winner() {
-        if (Checkers1510.PlayerIsRed)     
-            winner.setTextFill(Color.web("000"));
-        else
+        if (Checkers1510.PlayerIsBlack)     
             winner.setTextFill(Color.web("F00"));
+        else
+            winner.setTextFill(Color.web("000"));
     }
         
 }

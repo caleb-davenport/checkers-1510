@@ -10,10 +10,10 @@ public class VisualPiece extends Group {
     static Circle kingCircle;
     public VisualPiece(Board.Square square) {
         super();
-        if (square.isRed()) {
-            circle = new Circle(25, 25, 20, Color.web("F00"));
-        } else {
+        if (square.isBlack()) {
             circle = new Circle(25, 25, 20, Color.web("000"));
+        } else {
+            circle = new Circle(25, 25, 20, Color.web("F00"));
         }
         circle.setMouseTransparent(true);
         super.getChildren().add(circle);

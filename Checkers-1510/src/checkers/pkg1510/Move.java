@@ -29,10 +29,10 @@ public class Move {
     }
     
     private void discernType() {
-        if (startSquare.isRed() && (endY - startY) > 0 && !startSquare.isKing()) {
+        if (startSquare.isBlack() && (endY - startY) > 0 && !startSquare.isKing()) {
             movetype = MoveType.illegal;
             moveError = true;
-        } else if (!startSquare.isRed() && (endY - startY) < 0 && !startSquare.isKing()) {
+        } else if (!startSquare.isBlack() && (endY - startY) < 0 && !startSquare.isKing()) {
             movetype = MoveType.illegal;
             moveError = true;
         } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {

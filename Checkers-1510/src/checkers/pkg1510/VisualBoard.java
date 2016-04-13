@@ -76,7 +76,7 @@ public class VisualBoard extends GridPane {
     }
     public static void highlight(int row, int col) {
         Board.Square square = gameBoard.squareAt(row, col);
-        if (square.isValid() && square.isOccupied() && !(square.isRed() ^ Checkers1510.PlayerIsRed)) {
+        if (square.isValid() && square.isOccupied() && !(square.isBlack() ^ Checkers1510.PlayerIsBlack)) {
             unHighlightAll();
             tiles[row][col].highlight(true);
             activeCoord[0] = row;

@@ -15,11 +15,11 @@ import javafx.stage.Stage;
 public class Checkers1510 extends Application {
     
     public static final String BOARD_LOCATION = "BoardSetups\\StandardGame.txt";
-    public static boolean DEBUG = true; //ENABLE/DISABLE DEBUG MODE
+    public static boolean DEBUG = false; //ENABLE/DISABLE DEBUG MODE
     static Board gameBoard = new Board(BOARD_LOCATION);
     static VisualBoard visualBoard = new VisualBoard();
     static VisualStatus status = new VisualStatus();
-    static boolean PlayerIsRed = true;
+    static boolean PlayerIsBlack = true;
     
     @Override
     public void start(Stage primaryStage) {
@@ -42,7 +42,7 @@ public class Checkers1510 extends Application {
     
     public static void performMove(Move move) {
         if (gameBoard.anyJump() && move.getMoveType() == Move.MoveType.jump) {
-            if (gameBoard.getJumpPiece(move).isRed() ^ PlayerIsRed) {
+            if (gameBoard.getJumpPiece(move).isBlack() ^ PlayerIsBlack) {
                 gameBoard.takePiece(move.getStartY(), move.getStartX(), move.getEndY(), move.getEndX());
             }
             if (gameBoard.canJump(move.getEndY(), move.getEndX(), gameBoard.squareAt(move.getEndY(), move.getEndX()).isKing())) {
@@ -61,18 +61,18 @@ public class Checkers1510 extends Application {
         if (DEBUG) System.out.println(move.getStartY() + ", " + move.getStartX() + ", " + move.getEndY() + ", " + move.getEndX()); 
     }
     public static void endTurn() {
-        PlayerIsRed = !PlayerIsRed;
+        PlayerIsBlack = !PlayerIsBlack;
         if (isWon()) {
             System.out.println("You Win!");
             status.winner();
-            PlayerIsRed = !PlayerIsRed;
+            PlayerIsBlack = !PlayerIsBlack;
         }
         status.updatePlayer();
         gameBoard.kingPieces();
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
         status.clearNotice();
-        if (isWon()) PlayerIsRed = !PlayerIsRed;
+        if (isWon()) PlayerIsBlack = !PlayerIsBlack;
     }
     public static boolean isWon() {
       return !(gameBoard.anyStep() || gameBoard.anyJump());  
