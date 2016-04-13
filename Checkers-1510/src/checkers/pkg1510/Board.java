@@ -198,102 +198,34 @@ public class Board {
         board[starty][startx] = Square.empty;
     }
     
-    public boolean canJump(int starty, int startx, boolean isKing) {
-        boolean jump;
-        jump = false;
+    public boolean canMove(int starty, int startx, boolean isKing, boolean jumpMove) {
         if (PlayerIsBlack || isKing) {
-            try {
-                if (squareAt(starty - 1, startx - 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is a piece to the top-left");
-                    if (squareAt(starty - 1, startx - 1).isBlack ^ PlayerIsBlack) {
-                        if(!squareAt(starty - 2, startx - 2).isOccupied()) jump = true; //to left
-                    }
-                } 
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: TOP_LEFT: " + e);
-            }
-            try {
-                if (squareAt(starty - 1, startx + 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is a piece to the top-right");
-                    if (squareAt(starty - 1, startx + 1).isBlack ^ PlayerIsBlack) {
-                        if(!squareAt(starty - 2, startx + 2).isOccupied()) jump = true; //to right   
-                    }
-                }   
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: TOP_RIGHT: " + e);
+            for (int i = -1; i < 2; i = i + 2) {
+                try {
+                    if (!squareAt(starty - 1, startx + i).isOccupied() && !jumpMove) return true;
+                    else if ((squareAt(starty - 1, startx + i).isBlack ^ PlayerIsBlack)
+                                    && !squareAt(starty - 2, startx + 2*i).isOccupied()) return true;
+                } catch (Exception e) {}
             }
         }
         if (!PlayerIsBlack || isKing) {
-            try {
-                if (squareAt(starty + 1, startx - 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is a piece to the bottom-left");
-                    if (squareAt(starty + 1, startx - 1).isBlack ^ PlayerIsBlack) {
-                       if(!squareAt(starty + 2, startx - 2).isOccupied()) jump = true; //to left
-                    }
-                }
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: BOTTOM_LEFT: " + e);
-            }
-            try {
-                if (squareAt(starty + 1, startx + 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is a piece to the bottom-right");
-                    if (squareAt(starty + 1, startx + 1).isBlack ^ PlayerIsBlack) {
-                       if(!squareAt(starty + 2, startx + 2).isOccupied()) jump = true; //to right
-                    }
-                }
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: BOTTOM_RIGHT: " + e);
+            for (int i = -1; i < 2; i = i + 2) {
+                try {
+                    if (!squareAt(starty + 1, startx + i).isOccupied() && !jumpMove) return true;
+                    else if ((squareAt(starty + 1, startx + i).isBlack ^ PlayerIsBlack)
+                                    && !squareAt(starty + 2, startx + 2*i).isOccupied()) return true;
+                } catch (Exception e) {}
             }
         }
-        return jump;
+        return false;
     }
-    public boolean canStep(int starty, int startx, boolean isKing) {
-        boolean step;
-        step = false;
-        if (PlayerIsBlack || isKing) {
-            try {
-                if (!squareAt(starty - 1, startx - 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is no piece to the top-left");
-                    step = true; //to left
-                } 
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: TOP_LEFT: " + e);
-            }
-            try {
-                if (!squareAt(starty - 1, startx + 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is no piece to the top-right");
-                    step = true; //to right   
-                }   
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: TOP_RIGHT: " + e);
-            }
-        }
-        if (!PlayerIsBlack || isKing) {
-            try {
-                if (!squareAt(starty + 1, startx - 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is no piece to the bottom-left");
-                    step = true; //to left
-                }
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: BOTTOM_LEFT: " + e);
-            }
-            try {
-                if (!squareAt(starty + 1, startx + 1).isOccupied()) {
-                    if (DEBUG) System.out.println("There is no piece to the bottom-right");
-                    step = true; //to right
-                }
-            } catch (Exception e) {
-                if (DEBUG) System.out.println("ERROR: BOTTOM_RIGHT: " + e);
-            }
-        }
-        return step;
-    }
+
     public boolean anyStep() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 try {
                     if ((!squareAt(i, j).isBlack() ^ PlayerIsBlack)
-                            && canStep(i, j, squareAt(i, j).isKing()))
+                            && canMove(i, j, squareAt(i, j).isKing(), false))
                         return true;
                 } catch (Exception e) {
                 }
@@ -306,7 +238,7 @@ public class Board {
             for (int j = 0; j < 8; ++j) {
                 try {
                     if ((!squareAt(i, j).isBlack() ^ PlayerIsBlack)
-                            && canJump(i, j, squareAt(i, j).isKing()))
+                            && canMove(i, j, squareAt(i, j).isKing(), true))
                         return true;
                 } catch (Exception e) {
                 }

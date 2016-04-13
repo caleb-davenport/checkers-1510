@@ -45,7 +45,7 @@ public class Checkers1510 extends Application {
             if (gameBoard.getJumpPiece(move).isBlack() ^ PlayerIsBlack) {
                 gameBoard.takePiece(move.StartY(), move.StartX(), move.EndY(), move.EndX());
             }
-            if (gameBoard.canJump(move.EndY(), move.EndX(), gameBoard.squareAt(move.EndY(), move.EndX()).isKing())) {
+            if (gameBoard.canMove(move.EndY(), move.EndX(), gameBoard.squareAt(move.EndY(), move.EndX()).isKing(), true)) {
                 VisualBoard.unHighlightAll();
                 VisualBoard.highlight(move.EndY(), move.EndX());
                 visualBoard.redrawPieces();
