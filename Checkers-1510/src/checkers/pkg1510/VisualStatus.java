@@ -35,6 +35,7 @@ public class VisualStatus extends GridPane {
             visualBoard.redrawPieces();
             updatePlayer();
             unHighlightAll();
+            clearNotice();
             }
         });
         super.add(currentPlayer, 1, 0);
