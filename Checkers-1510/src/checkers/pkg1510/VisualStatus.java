@@ -20,6 +20,8 @@ public class VisualStatus extends GridPane {
     Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
+    Button saveGame = new Button("Save");
+    Button loadGame = new Button("Load");
     VisualStatus() {
         configureStatusPanel();
         setBackground();
@@ -38,10 +40,24 @@ public class VisualStatus extends GridPane {
             clearNotice();
             }
         });
+        saveGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            // insret function of button
+            System.out.println("Game saved");
+            }
+        });
+        loadGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            // insret function of button   
+            System.out.println("Load succesful");
+            }
+        });
         super.add(currentPlayer, 1, 0);
         super.add(winner, 1, 1);
         super.add(newGame, 1, 2);
-        super.add(notice, 1, 3);
+        super.add(saveGame, 1, 3);
+        super.add(loadGame, 1, 4);
+        super.add(notice, 1, 5);
         
         if (DEBUG) debug();
     }
@@ -58,7 +74,7 @@ public class VisualStatus extends GridPane {
     private void setBackground() {
         Color bg = Color.web("EEE");
         Color border = Color.web("555");
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 6; ++i) {
             Rectangle rect = new Rectangle(STATUS_WIDTH, 100);
             Rectangle side = new Rectangle(BORDER_WIDTH, 100);
             rect.setFill(bg);
@@ -70,14 +86,25 @@ public class VisualStatus extends GridPane {
         }
     }
     private void configureStatusPanel() {
-        for (int i=0; i<4; i++) {
-	  RowConstraints rowConstraints = new RowConstraints();
-	  rowConstraints.setMinHeight(100);
-	  rowConstraints.setPrefHeight(100);
-	  rowConstraints.setMaxHeight(100);
-	  rowConstraints.setValignment(VPos.CENTER);
-	  this.getRowConstraints().add(rowConstraints);
+        for (int i=0; i<2; i++){
+            RowConstraints row1 = new RowConstraints();
+            row1.setMinHeight(100);
+            row1.setPrefHeight(100);
+            row1.setMaxHeight(100);
+            this.getRowConstraints().add(row1); 
         }
+        for (int i=0; i<3; i++){
+            RowConstraints buttons = new RowConstraints();
+            buttons.setMinHeight(100/3);
+            buttons.setPrefHeight(100/3);
+            buttons.setMaxHeight(100/3);
+            this.getRowConstraints().add(buttons);
+        }
+        RowConstraints row4 = new RowConstraints();
+        row4.setMinHeight(100);
+        row4.setPrefHeight(100);
+        row4.setMaxHeight(100);
+        this.getRowConstraints().add(row4);
         ColumnConstraints border = new ColumnConstraints();
         border.setMinWidth(BORDER_WIDTH);
         border.setPrefWidth(BORDER_WIDTH);
@@ -89,7 +116,7 @@ public class VisualStatus extends GridPane {
         main.setMaxWidth(STATUS_WIDTH);
         main.setHalignment(HPos.CENTER);
         this.getColumnConstraints().add(main);
-    }
+     }    
     private void debug() {
         this.setGridLinesVisible(true);
     }
