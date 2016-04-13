@@ -35,8 +35,8 @@ public class Board {
         private final Boolean isValid; // f=invalid, t=valid
         private final String code;
 
-        Square(double rawNumber, Boolean isBlack, Boolean isKing, Boolean isOccupied,
-                Boolean isValid, String code) {
+        Square(double rawNumber, Boolean isBlack, Boolean isKing, 
+                Boolean isOccupied, Boolean isValid, String code) {
             this.rawNumber  = rawNumber;
             this.isBlack      = isBlack;
             this.isKing     = isKing;
@@ -53,10 +53,7 @@ public class Board {
         @Override
         public String toString()    { return String.valueOf(code); }
     }
-    
-    /**
-     * Returns square object from a given code
-     */
+
     public Square decode (String code) {
         switch (code) {
             case "X": return Square.invalid;
@@ -69,8 +66,7 @@ public class Board {
         }
     }
     
-    
-    /**
+     /**
      * Loads board into program variables from text file
      * @param pathStr path to setup file. Pass "" for default game
      */
@@ -104,8 +100,10 @@ public class Board {
                 }
                 returnVal = 0;
             } catch (Exception ex) {
-                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
-                System.err.println("ERROR: Loading board Setup, Loading default");
+                Logger.getLogger(Board.class.getName()).log(Level.SEVERE,
+                        null, ex);
+                System.err.println("ERROR: Loading board Setup, "
+                        + "Loading default");
                 setupBoard("");
                 returnVal = 1;
             }
@@ -114,10 +112,9 @@ public class Board {
     }
     
     /**
-     * Returns the state of an given square
      * @param y row of the board
      * @param x column of the board
-     * @return state of the square as int (perhaps enum)
+     * @return state of the square as an enum)
      */
     public Square squareAt(int y, int x) {
         return board[y][x];
@@ -140,14 +137,12 @@ public class Board {
         
     }
     public Square getJumpPiece(Move move) {
-        int takeny = (move.EndY() + move.StartY()) / 2; // Midpoint formula: LOL
+        int takeny = (move.EndY() + move.StartY()) / 2;
         int takenx = (move.EndX() + move.StartX()) / 2;
         
         return squareAt(takeny, takenx);
     }
-    /**
-     * Print a visualization of the board
-     */
+   
     public void printDebugBoard() {
        for (int i = 0; i < 8; i++) {
 	  for (int j = 0; j < 8; j++) {
@@ -155,12 +150,9 @@ public class Board {
 	  }
 	  System.out.println("");
        }
-        System.out.println("---------------------------------------------------------");
+        System.out.println("-----------------------------------------------");
     }
     
-    /**
-     * Edits a piece at a given square to be a king
-     */
     public void kingPieces() {
         for (int i = 0; i < 8; ++i) {
             if (squareAt(0, i).isValid()) {
@@ -191,35 +183,41 @@ public class Board {
             board[endy][endx] = decode(initSquare.code);
         }
         
-        takeny = (endy + starty) / 2; // Midpoint formula: LOL
+        takeny = (endy + starty) / 2;
         takenx = (endx + startx) / 2;
         
         board[takeny][takenx] = Square.empty;
         board[starty][startx] = Square.empty;
     }
     
-    public boolean canMove(int starty, int startx, boolean isKing, boolean jumpMove) {
+    public boolean canMove(int starty, int startx, boolean isKing,
+            boolean jumpMove) {
         if (PlayerIsBlack || isKing) {
             for (int i = -1; i < 2; i = i + 2) {
                 try {
-                    if (!squareAt(starty - 1, startx + i).isOccupied() && !jumpMove) return true;
-                    else if ((squareAt(starty - 1, startx + i).isBlack ^ PlayerIsBlack)
-                                    && !squareAt(starty - 2, startx + 2*i).isOccupied()) return true;
+                    if (!squareAt(starty - 1, startx + i).isOccupied() &&
+                            !jumpMove) return true;
+                    else if ((squareAt(starty - 1, startx + i).isBlack 
+                            ^ PlayerIsBlack) && !squareAt(starty - 2,
+                            startx + 2*i).isOccupied()) return true;
                 } catch (Exception e) {}
             }
         }
         if (!PlayerIsBlack || isKing) {
             for (int i = -1; i < 2; i = i + 2) {
                 try {
-                    if (!squareAt(starty + 1, startx + i).isOccupied() && !jumpMove) return true;
-                    else if ((squareAt(starty + 1, startx + i).isBlack ^ PlayerIsBlack)
-                                    && !squareAt(starty + 2, startx + 2*i).isOccupied()) return true;
+                    if (!squareAt(starty + 1, startx + i).isOccupied() &&
+                            !jumpMove) return true;
+                    else if ((squareAt(starty + 1, startx + i).isBlack 
+                            ^ PlayerIsBlack) && !squareAt(starty + 2, 
+                            startx + 2*i).isOccupied()) return true;
                 } catch (Exception e) {}
             }
         }
         return false;
     }
 
+    //step is considered to be a move from one tile to an adjacent one
     public boolean anyStep() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {

@@ -1,4 +1,3 @@
-
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;

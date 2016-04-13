@@ -14,7 +14,8 @@ import javafx.stage.Stage;
 
 public class Checkers1510 extends Application {
     
-    public static final String BOARD_LOCATION = "BoardSetups\\StandardGame.txt";
+    public static final String BOARD_LOCATION = 
+            "BoardSetups\\StandardGame.txt";
     public static boolean DEBUG = false; //ENABLE/DISABLE DEBUG MODE
     static Board gameBoard = new Board(BOARD_LOCATION);
     static VisualBoard visualBoard = new VisualBoard();
@@ -32,9 +33,6 @@ public class Checkers1510 extends Application {
         primaryStage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
         System.exit(0);
@@ -43,23 +41,29 @@ public class Checkers1510 extends Application {
     public static void performMove(Move move) {
         if (gameBoard.anyJump() && move.MoveType() == Move.MoveType.jump) {
             if (gameBoard.getJumpPiece(move).isBlack() ^ PlayerIsBlack) {
-                gameBoard.takePiece(move.StartY(), move.StartX(), move.EndY(), move.EndX());
+                gameBoard.takePiece(move.StartY(), move.StartX(), 
+                        move.EndY(), move.EndX());
             }
-            if (gameBoard.canMove(move.EndY(), move.EndX(), gameBoard.squareAt(move.EndY(), move.EndX()).isKing(), true)) {
+            if (gameBoard.canMove(move.EndY(), move.EndX(), 
+                    gameBoard.squareAt(move.EndY(), 
+                    move.EndX()).isKing(), true)) {
                 VisualBoard.unHighlightAll();
                 VisualBoard.highlight(move.EndY(), move.EndX());
                 visualBoard.redrawPieces();
                 return;
             }
             endTurn();
-        } else if (!gameBoard.anyJump() && move.MoveType() == Move.MoveType.step) {
-            gameBoard.movePiece(move.StartY(), move.StartX(), move.EndY(), move.EndX());
+        } else if (!gameBoard.anyJump() && move.MoveType() 
+                == Move.MoveType.step) {
+            gameBoard.movePiece(move.StartY(), move.StartX(), move.EndY(), 
+                    move.EndX());
             endTurn();
         } else {
             if (gameBoard.anyJump()) status.jumpAvailable();
             else status.illegalMove();
         }
-        if (DEBUG) System.out.println(move.StartY() + ", " + move.StartX() + ", " + move.EndY() + ", " + move.EndX()); 
+        if (DEBUG) System.out.println(move.StartY() + ", " + move.StartX()
+                + ", " + move.EndY() + ", " + move.EndX()); 
     }
     public static void endTurn() {
         PlayerIsBlack = !PlayerIsBlack;
