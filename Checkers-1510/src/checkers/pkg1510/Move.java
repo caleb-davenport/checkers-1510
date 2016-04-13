@@ -1,4 +1,3 @@
-
 package checkers.pkg1510;
 
 public class Move {
@@ -29,15 +28,19 @@ public class Move {
     }
     
     private void discernType() {
-        if (startSquare.isRed() && (endY - startY) > 0 && !startSquare.isKing()) {
+        if (startSquare.isBlack() && (endY - startY) > 0 && 
+                !startSquare.isKing()) {
             movetype = MoveType.illegal;
             moveError = true;
-        } else if (!startSquare.isRed() && (endY - startY) < 0 && !startSquare.isKing()) {
+        } else if (!startSquare.isBlack() && (endY - startY) < 0 && 
+                !startSquare.isKing()) {
             movetype = MoveType.illegal;
             moveError = true;
-        } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) == 2) {
+        } else if (Math.abs(startY - endY) == 2 && Math.abs(startX - endX) 
+                == 2) {
             movetype = MoveType.jump;
-        } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) == 1) {
+        } else if (Math.abs(startY - endY) == 1 && Math.abs(startX - endX) 
+                == 1) {
             movetype = MoveType.step;
         } else {
             movetype = MoveType.illegal;
@@ -45,22 +48,19 @@ public class Move {
         }
     }
     
-    public int getStartY() { return startY; }
+    public int StartY() { return startY; }
     
-    public int getStartX() { return startX; }
+    public int StartX() { return startX; }
     
-    public int getEndY() { return endY; }
+    public int EndY() { return endY; }
     
-    public int getEndX() { return endX; }
+    public int EndX() { return endX; }
     
-    public int[] getStartPos() { return new int[]{startY, startX}; }
+    public int[] StartPos() { return new int[]{startY, startX}; }
     
-    public int[] getEndPos() { return new int[]{startY, startX}; }
+    public int[] EndPos() { return new int[]{startY, startX}; }
     
-    public MoveType getMoveType() { return movetype; }
+    public MoveType MoveType() { return movetype; }
     
     public boolean HasError() { return moveError; }
-    
-    
-    
 }

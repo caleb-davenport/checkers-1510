@@ -16,13 +16,14 @@ public class VisualBoard extends GridPane {
         redrawPieces();
         if (DEBUG) debug();
     }
-    public final void redrawPieces() { // !!!Run this at the end of every turn!!!
+    public final void redrawPieces() { //Run this at the end of every turn!
         Board.Square square;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 square = gameBoard.squareAt(row, col);
                 for (Node node : this.getChildren()) {
-                    if (node instanceof VisualPiece && GridPane.getColumnIndex(node) != null) {
+                    if (node instanceof VisualPiece && 
+                            GridPane.getColumnIndex(node) != null) {
                         if (GridPane.getColumnIndex(node) == col
                                 && GridPane.getRowIndex(node) == row) {
                             this.getChildren().remove(node);
@@ -76,13 +77,15 @@ public class VisualBoard extends GridPane {
     }
     public static void highlight(int row, int col) {
         Board.Square square = gameBoard.squareAt(row, col);
-        if (square.isValid() && square.isOccupied() && !(square.isRed() ^ Checkers1510.PlayerIsRed)) {
+        if (square.isValid() && square.isOccupied() && !(square.isBlack() 
+                ^ Checkers1510.PlayerIsBlack)) {
             unHighlightAll();
             tiles[row][col].highlight(true);
             activeCoord[0] = row;
             activeCoord[1] = col;
-        } else if (anyHighlight() && square.isValid() && !square.isOccupied()) {
-            Checkers1510.performMove(new Move(activeCoord[0], activeCoord[1], row, col, gameBoard.squareAt(activeCoord[0], activeCoord[1])));
+        }else if (anyHighlight() && square.isValid() && !square.isOccupied()){
+            Checkers1510.performMove(new Move(activeCoord[0], activeCoord[1],
+               row, col, gameBoard.squareAt(activeCoord[0], activeCoord[1])));
         }
     }
     public static void unHighlightAll() {

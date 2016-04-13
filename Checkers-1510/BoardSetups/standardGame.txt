@@ -1,8 +1,8 @@
-X	b	X	b	X	b	X	b	
-b	X	b	X	b	X	b	X	
-X	b	X	b	X	b	X	b	
+X	r	X	r	X	r	X	r	
+r	X	r	X	r	X	r	X	
+X	r	X	r	X	r	X	r	
 _	X	_	X	_	X	_	X	
 X	_	X	_	X	_	X	_
-r	X	r	X	r	X	r	X
-X	r	X	r	X	r	X	r
-r	X	r	X	r	X	r	X
+b	X	b	X	b	X	b	X
+X	b	X	b	X	b	X	b
+b	X	b	X	b	X	b	X
