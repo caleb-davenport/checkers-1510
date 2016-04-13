@@ -125,7 +125,7 @@ public class Board {
                 P.println("");
             }
             P.close();
-            System.out.println("Game Saved.");
+            if (DEBUG) System.out.println("Game Saved.");
         } catch (Exception e) {
             System.err.println("ERROR: Couldn't save game");
         }
