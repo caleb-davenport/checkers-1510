@@ -19,7 +19,9 @@ public class VisualStatus extends GridPane {
     Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
-    
+    Button saveGame = new Button("Save");
+    Button loadGame = new Button("Load");
+   
     static Text Player1Name = new Text("Player1");
     static Text Player2Name = new Text("Player2");
     
@@ -66,7 +68,7 @@ public class VisualStatus extends GridPane {
         if (DEBUG) debug();
     }
     public final void updatePlayer() {
-        if (Checkers1510.PlayerIsRed) {
+        if (Checkers1510.PlayerIsBlack) {
             currentPlayer.setText(Player1Name.getText());
             currentPlayer.setTextFill(Color.web("F00"));
         }
