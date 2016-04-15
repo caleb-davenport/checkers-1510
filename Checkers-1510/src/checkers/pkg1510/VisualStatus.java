@@ -2,6 +2,7 @@ package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
 import static checkers.pkg1510.VisualBoard.*;
+import com.sun.javafx.tk.Toolkit;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -15,15 +16,15 @@ import javafx.scene.text.*;
 public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
-    Label currentPlayer = new Label(Player1Name.getText());
+    Label currentPlayer = new Label(player1Name);
     Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
     Button saveGame = new Button("Save");
     Button loadGame = new Button("Load");
    
-    static Text Player1Name = new Text("Player1");
-    static Text Player2Name = new Text("Player2");
+    static String player1Name = "Player1";
+    static String player2Name = "Player2";
     
     static Bounds statusBound;
     
@@ -68,14 +69,23 @@ public class VisualStatus extends GridPane {
         if (DEBUG) debug();
     }
     public final void updatePlayer() {
+        double textWidth = statusBound.getWidth();
+        
         if (Checkers1510.PlayerIsBlack) {
-            currentPlayer.setText(Player1Name.getText());
+            currentPlayer.setText(player1Name);
             currentPlayer.setTextFill(Color.web("000"));
-        }
-        else {
-            currentPlayer.setText(Player2Name.getText());
+            textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(player1Name, currentPlayer.getFont());
+        } else {
+            currentPlayer.setText(player2Name);
             currentPlayer.setTextFill(Color.web("F00"));
+            textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(player2Name, currentPlayer.getFont());
         }
+
+        double scale = statusBound.getWidth()/textWidth;
+        currentPlayer.setScaleX(scale);
+        currentPlayer.setScaleY(scale);
+        
+        currentPlayer.setText(PlayerIsBlack ? player1Name : player1Name);
     }
     private void setBackground() {
         Color bg = Color.web("EEE");
@@ -145,16 +155,9 @@ public class VisualStatus extends GridPane {
     }
     
     public void setPl1Name (String pl1Name) {
-        Player1Name.setText(pl1Name);
-        Bounds textBound = Player1Name.getBoundsInLocal();
-        double scalex = statusBound.getWidth()/textBound.getWidth();
-        Player1Name.setScaleX(scalex);
+        player1Name = pl1Name;
     }
     public void setPl2Name (String pl2Name) {
-        Player2Name.setText(pl2Name);
-        Bounds textBound = Player2Name.getBoundsInLocal();
-        double scalex = statusBound.getWidth()/textBound.getWidth();
-        Player2Name.setScaleX(scalex);
-    }
-        
+        player2Name = pl2Name;
+    }        
 }
