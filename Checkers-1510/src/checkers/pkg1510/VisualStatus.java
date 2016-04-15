@@ -15,7 +15,7 @@ import javafx.scene.text.*;
 public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
-    Label currentPlayer = new Label("BLACK");
+    Label currentPlayer = new Label(Player1Name.getText());
     Label winner = new Label("Wins!");
     Label notice = new Label("");
     Button newGame = new Button("New Game");
@@ -70,14 +70,10 @@ public class VisualStatus extends GridPane {
     public final void updatePlayer() {
         if (Checkers1510.PlayerIsBlack) {
             currentPlayer.setText(Player1Name.getText());
-            currentPlayer.setTextFill(Color.web("F00"));
-        }
-        else {
-            currentPlayer.setText(Player2Name.getText());
             currentPlayer.setTextFill(Color.web("000"));
         }
         else {
-            currentPlayer.setText("RED");
+            currentPlayer.setText(Player2Name.getText());
             currentPlayer.setTextFill(Color.web("F00"));
         }
     }
