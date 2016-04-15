@@ -112,22 +112,36 @@ public class VisualStatus extends GridPane {
         row4.setPrefHeight(100);
         row4.setMaxHeight(100);
         this.getRowConstraints().add(row4);
+        
         ColumnConstraints border = new ColumnConstraints();
         border.setMinWidth(BORDER_WIDTH);
         border.setPrefWidth(BORDER_WIDTH);
         border.setMaxWidth(BORDER_WIDTH);
         this.getColumnConstraints().add(border);
+        
         ColumnConstraints main = new ColumnConstraints();
         main.setMinWidth(STATUS_WIDTH);
         main.setPrefWidth(STATUS_WIDTH);
         main.setMaxWidth(STATUS_WIDTH);
         main.setHalignment(HPos.CENTER);
         this.getColumnConstraints().add(main);
-     }    
+        
+        BorderPane buttons = new BorderPane();
+        buttons.setPadding(new Insets(20, 0, 20, 20));
+        
+        newGame.setMaxWidth (STATUS_WIDTH * 0.7);
+        saveGame.setMaxWidth(STATUS_WIDTH * 0.7);
+        loadGame.setMaxWidth(STATUS_WIDTH * 0.7);
+        
+        VBox vbButtons = new VBox();
+        vbButtons.setSpacing(10);
+        vbButtons.setPadding(new Insets(0, 20, 10, 20));
+        vbButtons.getChildren().addAll(newGame, saveGame, loadGame);
+    }    
     private void debug() {
         this.setGridLinesVisible(true);
     }
-
+    
     public final void jumpAvailable() {
         notice.setText("You have a\njump available!");
     }
