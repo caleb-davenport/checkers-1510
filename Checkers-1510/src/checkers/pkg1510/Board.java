@@ -165,6 +165,10 @@ public class Board {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open the checkers game");
         fileChooser.setInitialDirectory(new File("BoardSetups"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("TXT", "*.txt"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
         File file = fileChooser.showOpenDialog(stage);
         if (file == null) return false;
         gameBoard.setupBoard(file.getPath());
