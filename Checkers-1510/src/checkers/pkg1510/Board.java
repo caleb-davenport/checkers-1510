@@ -27,22 +27,22 @@ public class Board {
     public enum Square {
         invalid  (-2, null,  null,  null,  false, "X"),
         empty    (-1, null,  null,  false, true,  "_"),
-        blackSerf(0,  true, false, true,  true,  "b"),
-        redSerf  (1,  false,  false, true,  true,  "r"),
-        blackKing(2,  true, true,  true,  true,  "B"),
-        redKing  (3,  false,  true,  true,  true,  "R");
+        blackSerf(0,  true,  false, true,  true,  "b"),
+        redSerf  (1,  false, false, true,  true,  "r"),
+        blackKing(2,  true,  true,  true,  true,  "B"),
+        redKing  (3,  false, true,  true,  true,  "R");
 
-        private final double rawNumber;   // number representing state
-        private final Boolean isBlack; // f=black t=red Null=empty
-        private final Boolean isKing; // f=not_king t=king Null=empty
+        private final double  rawNumber;  // number representing state
+        private final Boolean isBlack;    // f=black t=red Null=empty
+        private final Boolean isKing;     // f=not_king t=king Null=empty
         private final Boolean isOccupied; // f=empty t=occupied Null=invalid
-        private final Boolean isValid; // f=invalid, t=valid
-        private final String code;
+        private final Boolean isValid;    // f=invalid, t=valid
+        private final String  code;
 
         Square(double rawNumber, Boolean isBlack, Boolean isKing, 
                 Boolean isOccupied, Boolean isValid, String code) {
             this.rawNumber  = rawNumber;
-            this.isBlack      = isBlack;
+            this.isBlack    = isBlack;
             this.isKing     = isKing;
             this.isOccupied = isOccupied;
             this.isValid    = isValid;
@@ -50,7 +50,7 @@ public class Board {
         }
 
         public double rawNumber()   { return rawNumber; }
-        public Boolean isBlack()      { return isBlack; }
+        public Boolean isBlack()    { return isBlack; }
         public Boolean isKing()     { return isKing; }
         public Boolean isOccupied() { return isOccupied; }
         public Boolean isValid()    { return isValid; }
@@ -66,7 +66,7 @@ public class Board {
             case "r": return Square.redSerf;
             case "B": return Square.blackKing;
             case "R": return Square.redKing;
-            default: return null;
+            default:  return null;
         }
     }
     
@@ -76,7 +76,6 @@ public class Board {
      */
     public final void setupBoard (String pathStr) {
         Path path;
-        //int returnVal;
         
         if (pathStr == null || pathStr.isEmpty()) {
             //Initialize board as empty, but with invalid and valid squares
@@ -90,7 +89,6 @@ public class Board {
                     }
                 }
             }
-            //returnVal = 0;
         } else {
             try {
                 path = Paths.get(pathStr);
@@ -124,17 +122,14 @@ public class Board {
                     if (DEBUG) System.out.println("Couldn't load " +
                             "custom settings - Loading default");
                 }
-                //returnVal = 0;
             } catch (Exception ex) {
                 Logger.getLogger(Board.class.getName()).log(Level.SEVERE,
                         null, ex);
                 System.err.println("ERROR: Loading board Setup, "
                         + "Loading default");
                 setupBoard("");
-                //returnVal = 1;
             }
         }
-        //return returnVal;
     }
     public boolean saveBoard() {
         String s = "BoardSetups\\";
@@ -178,7 +173,7 @@ public class Board {
     /**
      * @param y row of the board
      * @param x column of the board
-     * @return state of the square as an enum)
+     * @return state of the square as an enum
      */
     public Square squareAt(int y, int x) {
         return board[y][x];
@@ -281,7 +276,7 @@ public class Board {
         return false;
     }
 
-    //step is considered to be a move from one tile to an adjacent one
+    //Step is considered to be a move from one tile to an adjacent one
     public boolean anyStep() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
