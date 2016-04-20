@@ -24,8 +24,8 @@ public class VisualStatus extends GridPane {
     private final Button saveGame = new Button("Save");
     private final Button loadGame = new Button("Load");
    
-    static String player1Name = "Player1";
-    static String player2Name = "Player2";
+    static String player1Name = "BLACK";
+    static String player2Name = "RED";
     
     static Bounds statusBound;
     
@@ -186,7 +186,7 @@ public class VisualStatus extends GridPane {
 
         // Traditional way to get the response value.
         Optional<String> resultPl1 = dialogPl1.showAndWait();
-        if (resultPl1.isPresent()){
+        if (resultPl1.isPresent() && !"".equals(resultPl1.get())){
             status.setPl1Name(resultPl1.get());
             status.updatePlayer();
         }
@@ -198,7 +198,7 @@ public class VisualStatus extends GridPane {
         
         // Traditional way to get the response value.
         Optional<String> resultPl2 = dialogPl2.showAndWait();
-        if (resultPl2.isPresent()){
+        if (resultPl2.isPresent() && !"".equals(resultPl2.get())){
             status.setPl2Name(resultPl2.get());
             status.updatePlayer();
         }

@@ -7,10 +7,8 @@
  */
 package checkers.pkg1510;
 
-import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.*;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
