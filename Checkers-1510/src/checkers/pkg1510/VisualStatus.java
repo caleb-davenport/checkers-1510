@@ -48,6 +48,7 @@ public class VisualStatus extends GridPane {
                 updatePlayer();
                 unHighlightAll();
                 clearNotice();
+                disableSaveGame(false);
             }
         });
         saveGame.setOnAction(new EventHandler<ActionEvent>() {
@@ -62,6 +63,7 @@ public class VisualStatus extends GridPane {
                 visualBoard.redrawPieces();
                 updatePlayer();
                 unHighlightAll();
+                disableSaveGame(false);
             }
         });
         super.add(currentPlayer, 1, 0);
@@ -208,5 +210,9 @@ public class VisualStatus extends GridPane {
     }
     public void setPl2Name (String pl2Name) {
         player2Name = pl2Name;
-    }        
+    }
+    public void disableSaveGame(boolean d) {
+        if (d) saveGame.setDisable(true);
+        else saveGame.setDisable(false);
+    }
 }

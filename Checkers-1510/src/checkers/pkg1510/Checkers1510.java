@@ -72,6 +72,7 @@ public class Checkers1510 extends Application {
         if (isWon()) {
             status.winner();
             PlayerIsBlack = !PlayerIsBlack;
+            status.disableSaveGame(true);
         }
         status.updatePlayer();
         gameBoard.kingPieces();
