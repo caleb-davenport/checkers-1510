@@ -27,14 +27,6 @@ public class Checkers1510 extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
-        root.setCenter(visualBoard);
-        root.setRight(status);
-        
-        primaryStage.setTitle("Checkers");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();
-        
         TextInputDialog dialogPl1 = new TextInputDialog();
         dialogPl1.setTitle("Player 1 name");
         dialogPl1.setHeaderText("Please enter a name for player 1");
@@ -44,6 +36,7 @@ public class Checkers1510 extends Application {
         Optional<String> resultPl1 = dialogPl1.showAndWait();
         if (resultPl1.isPresent()){
             status.setPl1Name(resultPl1.get());
+            status.updatePlayer();
         }
 
         TextInputDialog dialogPl2 = new TextInputDialog();
@@ -57,7 +50,15 @@ public class Checkers1510 extends Application {
         Optional<String> resultPl2 = dialogPl2.showAndWait();
         if (resultPl2.isPresent()){
             status.setPl2Name(resultPl2.get());
+            status.updatePlayer();
         }
+        BorderPane root = new BorderPane();
+        root.setCenter(visualBoard);
+        root.setRight(status);
+        
+        primaryStage.setTitle("Checkers");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
