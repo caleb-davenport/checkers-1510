@@ -3,6 +3,7 @@ package checkers.pkg1510;
 import static checkers.pkg1510.Checkers1510.*;
 import static checkers.pkg1510.VisualBoard.*;
 import com.sun.javafx.tk.Toolkit;
+import java.util.Optional;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -16,12 +17,12 @@ import javafx.scene.text.*;
 public class VisualStatus extends GridPane {
     private final int BORDER_WIDTH = 4;
     private final int STATUS_WIDTH = 196; //200 - BORDER_WIDTH
-    Label currentPlayer = new Label(player1Name);
-    Label winner = new Label("Wins!");
-    Label notice = new Label("");
-    Button newGame = new Button("New Game");
-    Button saveGame = new Button("Save");
-    Button loadGame = new Button("Load");
+    private final Label currentPlayer = new Label(player1Name);
+    private final Label winner = new Label("Wins!");
+    private final Label notice = new Label("");
+    private final Button newGame = new Button("New Game");
+    private final Button saveGame = new Button("Save");
+    private final Button loadGame = new Button("Load");
    
     static String player1Name = "Player1";
     static String player2Name = "Player2";
@@ -39,24 +40,28 @@ public class VisualStatus extends GridPane {
         notice.setTextAlignment(TextAlignment.CENTER);
         newGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            PlayerIsBlack = true;
-            winner.setTextFill(Color.web("000", 0));
-            gameBoard.setupBoard(BOARD_LOCATION);
-            visualBoard.redrawPieces();
-            updatePlayer();
-            unHighlightAll();
-            clearNotice();
+                determineNames();
+                PlayerIsBlack = true;
+                winner.setTextFill(Color.web("000", 0));
+                gameBoard.setupBoard(BOARD_LOCATION);
+                visualBoard.redrawPieces();
+                updatePlayer();
+                unHighlightAll();
+                clearNotice();
             }
         });
         saveGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            gameBoard.saveBoard();
+                if(gameBoard.saveBoard()) noticeSave();
             }
         });
         loadGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-            // insret function of button   
-            System.out.println("Load succesful");
+                if(!gameBoard.loadBoard()) return;
+                noticeLoad();
+                visualBoard.redrawPieces();
+                updatePlayer();
+                unHighlightAll();
             }
         });
         super.add(currentPlayer, 1, 0);
@@ -158,6 +163,12 @@ public class VisualStatus extends GridPane {
     public final void illegalMove() {
         notice.setText("That's an illegal move!");
     }
+    public final void noticeSave() {
+        notice.setText("Game Saved!");
+    }
+    public final void noticeLoad() {
+        notice.setText("Game Loaded!");
+    }
     public final void clearNotice() {
         notice.setText("");
     }
@@ -167,7 +178,31 @@ public class VisualStatus extends GridPane {
         else
             winner.setTextFill(Color.web("000"));
     }
-    
+    public static final void determineNames() {
+        TextInputDialog dialogPl1 = new TextInputDialog();
+        dialogPl1.setTitle("Player 1 name");
+        dialogPl1.setHeaderText("Please enter a name for player 1");
+        dialogPl1.setContentText("Player 1:");
+
+        // Traditional way to get the response value.
+        Optional<String> resultPl1 = dialogPl1.showAndWait();
+        if (resultPl1.isPresent()){
+            status.setPl1Name(resultPl1.get());
+            status.updatePlayer();
+        }
+
+        TextInputDialog dialogPl2 = new TextInputDialog();
+        dialogPl2.setTitle("Player 2 name");
+        dialogPl2.setHeaderText("Please enter a name for player 2");
+        dialogPl2.setContentText("Player 2:");
+        
+        // Traditional way to get the response value.
+        Optional<String> resultPl2 = dialogPl2.showAndWait();
+        if (resultPl2.isPresent()){
+            status.setPl2Name(resultPl2.get());
+            status.updatePlayer();
+        }
+    }
     public void setPl1Name (String pl1Name) {
         player1Name = pl1Name;
     }

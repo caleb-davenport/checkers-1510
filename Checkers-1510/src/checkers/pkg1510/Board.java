@@ -2,6 +2,7 @@
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
+import java.io.File;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 
 public class Board {
@@ -71,9 +74,9 @@ public class Board {
      * Loads board into program variables from text file
      * @param pathStr path to setup file. Pass "" for default game
      */
-    public final int setupBoard (String pathStr) {
+    public final void setupBoard (String pathStr) {
         Path path;
-        int returnVal;
+        //int returnVal;
         
         if (pathStr == null || pathStr.isEmpty()) {
             //Initialize board as empty, but with invalid and valid squares
@@ -87,48 +90,85 @@ public class Board {
                     }
                 }
             }
-            returnVal = 0;
+            //returnVal = 0;
         } else {
             try {
                 path = Paths.get(pathStr);
                 List<String> input = Files.readAllLines(path);
-                if (input.size() != 8) throw new Exception("Format Error");
+                if (input.size() < 8) throw new Exception("Format Error");
                 for (int i = 0; i < 8; ++i) {
                     String[] codes = input.get(i).split("\t");
                     for (int j = 0; j < 8; ++j) {
                         board[i][j] = decode(codes[j]);
                     }
                 }
-                returnVal = 0;
+                try {
+                    switch (input.get(8)) {
+                        case "R":
+                            if (PlayerIsBlack) endTurn();
+                            break;
+                        case "B":
+                        default:
+                            if (!PlayerIsBlack) endTurn();
+                            break;
+                    }
+                    switch (input.get(9)) {
+                        case "": break;
+                        default: status.setPl1Name(input.get(9));
+                    }
+                    switch (input.get(10)) {
+                        case "": break;
+                        default: status.setPl2Name(input.get(10));
+                    }
+                } catch (Exception e) {
+                    if (DEBUG) System.out.println("Couldn't load " +
+                            "custom settings - Loading default");
+                }
+                //returnVal = 0;
             } catch (Exception ex) {
                 Logger.getLogger(Board.class.getName()).log(Level.SEVERE,
                         null, ex);
                 System.err.println("ERROR: Loading board Setup, "
                         + "Loading default");
                 setupBoard("");
-                returnVal = 1;
+                //returnVal = 1;
             }
         }
-        return returnVal;
+        //return returnVal;
     }
-    public void saveBoard() {
-        String saveLocation = "BoardSetups\\";
-        if (PlayerIsBlack) saveLocation = saveLocation.concat("b");
-        else saveLocation = saveLocation.concat("r");
-        saveLocation = saveLocation.concat(String.valueOf(System.currentTimeMillis()));
-        saveLocation = saveLocation.concat(".txt");
-        try (PrintStream P = new PrintStream(saveLocation)) {
+    public boolean saveBoard() {
+        String s = "BoardSetups\\";
+        s = s.concat("CHKRS");
+        s = s + String.valueOf(System.currentTimeMillis());
+        s = s.concat(".txt");
+        try (PrintStream P = new PrintStream(s)) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     P.print(squareAt(i, j).toString() + "\t");
                 }
                 P.println("");
             }
+            if (PlayerIsBlack) P.println("B");
+            else P.println("R");
+            P.println(VisualStatus.player1Name);
+            P.println(VisualStatus.player2Name);
             P.close();
             if (DEBUG) System.out.println("Game Saved.");
         } catch (Exception e) {
             System.err.println("ERROR: Couldn't save game");
+            return false;
         }
+        return true;
+    }
+    public boolean loadBoard() {
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open the checkers game");
+        fileChooser.setInitialDirectory(new File("BoardSetups"));
+        File file = fileChooser.showOpenDialog(stage);
+        if (file == null) return false;
+        gameBoard.setupBoard(file.getPath());
+        return true;
     }
     
     /**
