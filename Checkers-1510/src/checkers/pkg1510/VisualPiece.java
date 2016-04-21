@@ -1,4 +1,3 @@
-
 package checkers.pkg1510;
 
 import javafx.scene.*;

@@ -1,5 +1,5 @@
-
 package checkers.pkg1510;
+
 import static checkers.pkg1510.Checkers1510.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
