@@ -7,6 +7,8 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,7 +136,8 @@ public class Board {
     public boolean saveBoard() {
         String s = "BoardSetups\\";
         s = s.concat("CHKRS");
-        s = s + String.valueOf(System.currentTimeMillis());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM_dd_YYYY-HH_mm_ss");
+        s = s + LocalDateTime.now().format(formatter);
         s = s.concat(".txt");
         try (PrintStream P = new PrintStream(s)) {
             for (int i = 0; i < 8; i++) {
