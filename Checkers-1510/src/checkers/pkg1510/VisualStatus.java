@@ -53,7 +53,10 @@ public class VisualStatus extends GridPane {
         });
         saveGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                if(gameBoard.saveBoard()) noticeSave();
+                if(gameBoard.saveBoard()) {
+                    noticeSave();
+                    disableSaveGame(true);
+                }
             }
         });
         loadGame.setOnAction(new EventHandler<ActionEvent>() {

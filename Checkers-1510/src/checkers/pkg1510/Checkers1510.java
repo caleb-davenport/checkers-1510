@@ -79,6 +79,7 @@ public class Checkers1510 extends Application {
         VisualBoard.unHighlightAll();
         visualBoard.redrawPieces();
         status.clearNotice();
+        status.disableSaveGame(false);
         if (isWon()) PlayerIsBlack = !PlayerIsBlack;
     }
     public static boolean isWon() {
