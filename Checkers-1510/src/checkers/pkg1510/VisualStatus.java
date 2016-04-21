@@ -32,9 +32,9 @@ public class VisualStatus extends GridPane {
     VisualStatus() {
         configureStatusPanel();
         setBackground();
-        currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
+        currentPlayer.setFont(Font.font("Calibri", FontWeight.BOLD, 12));
         currentPlayer.setTextFill(Color.web("000"));
-        winner.setFont(Font.font("Calibri", FontWeight.BOLD, 60));
+        winner.setFont(Font.font("Calibri", FontWeight.BOLD, 12));
         winner.setTextFill(Color.web("000", 0));
         notice.setFont(Font.font("Calibri", FontWeight.BOLD, 18));
         notice.setTextAlignment(TextAlignment.CENTER);
@@ -91,7 +91,8 @@ public class VisualStatus extends GridPane {
             textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(player2Name, currentPlayer.getFont());
         }
 
-        double scale = statusBound.getWidth()/textWidth;
+        double scale = (statusBound.getWidth()/textWidth) * 0.98;
+        if (scale > 10) scale = 10;
         currentPlayer.setScaleX(scale);
         currentPlayer.setScaleY(scale);
         
