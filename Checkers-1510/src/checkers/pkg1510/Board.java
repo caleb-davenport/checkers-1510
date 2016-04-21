@@ -1,4 +1,3 @@
-
 package checkers.pkg1510;
 
 import static checkers.pkg1510.Checkers1510.*;
@@ -15,7 +14,6 @@ import java.util.logging.Logger;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
 public class Board {
 
     public Square board[][] = new Square[8][8];
@@ -26,6 +24,7 @@ public class Board {
         setupBoard(pathStr);
         if (DEBUG) debug();
     }
+    
     public enum Square {
         invalid  (-2, null,  null,  null,  false, "X"),
         empty    (-1, null,  null,  false, true,  "_"),
@@ -136,7 +135,8 @@ public class Board {
     public boolean saveBoard() {
         String s = "BoardSetups\\";
         s = s.concat("CHKRS");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM_dd_YYYY-HH_mm_ss");
+        DateTimeFormatter formatter = 
+                DateTimeFormatter.ofPattern("MM_dd_YYYY-HH_mm_ss");
         s = s + LocalDateTime.now().format(formatter);
         s = s.concat(".txt");
         try (PrintStream P = new PrintStream(s)) {

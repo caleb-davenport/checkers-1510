@@ -84,11 +84,15 @@ public class VisualStatus extends GridPane {
         if (Checkers1510.PlayerIsBlack) {
             currentPlayer.setText(player1Name);
             currentPlayer.setTextFill(Color.web("000"));
-            textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(player1Name, currentPlayer.getFont());
+            textWidth = 
+                    Toolkit.getToolkit().getFontLoader().computeStringWidth
+        (player1Name, currentPlayer.getFont());
         } else {
             currentPlayer.setText(player2Name);
             currentPlayer.setTextFill(Color.web("F00"));
-            textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(player2Name, currentPlayer.getFont());
+            textWidth = 
+                    Toolkit.getToolkit().getFontLoader().computeStringWidth
+        (player2Name, currentPlayer.getFont());
         }
 
         double scale = (statusBound.getWidth()/textWidth) * 0.98;

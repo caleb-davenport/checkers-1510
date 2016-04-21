@@ -1,0 +1,11 @@
+X	r	X	r	X	r	X	r	
+r	X	r	X	_	X	r	X	
+X	r	X	_	X	_	X	r	
+_	X	_	X	_	X	r	X	
+X	_	X	_	X	_	X	r	
+b	X	b	X	_	X	_	X	
+X	b	X	b	X	b	X	b	
+b	X	b	X	b	X	b	X	
+B
+Ashley Fredenburg
+Sam
